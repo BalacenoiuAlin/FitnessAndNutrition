@@ -1,20 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import SignUpScreen from './screens/SignUpScreen';
+import SignInScreen from './screens/SignInScreen';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import ProfileConfigurationScreen from './screens/ProfileConfigurationScreen';
+import ProfileConfigurationScreenSecond from './screens/GoalScreen';
+import GoalScreen from './screens/GoalScreen';
+import GoalTimeScreen from './screens/GoalTimeScreen';
+import WeightSelectorScreen from './screens/WeightSelectorScreen';
+import ActivityScreen from './screens/ActivityScreen';
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.root}>
+      {/* <SignInScreen /> */}
+      {/*  <SignUpScreen /> */}
+      {/* <ProfileConfigurationScreen /> */}
+      {/* <GoalScreen /> */}
+      {/* <WeightSelectorScreen /> */}
+      {/* <GoalTimeScreen /> */}
+      {/* <ActivityScreen /> */}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "F9FBFC"
   },
 });
+
+export default App;

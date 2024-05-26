@@ -19,13 +19,13 @@ const ProfileCreationScreen = () => {
                     Based on the options that you made, these are the following calculations:
                 </Text>
                 <Text style={styles.textStyle}>
-                    (BMI)Body mass index: ---
-                </Text>
-                <Text style={styles.textStyle}>
-                    (BMR)Bazal metabolic rate: ---
+                    (BMI)Body mass index:        28.37
                 </Text >
                 <Text style={styles.textStyle}>
-                    Required caloric maintenance: ---
+                    (BMR)Bazal metabolic rate: 1989 Kcal
+                </Text >
+                <Text style={styles.textStyle}>
+                    Required caloric maintenance: 2735 Kcal
                 </Text>
 
                 <CustomButton 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 23,
         width: '90%',
-        marginTop: 60,
+        marginTop: 40,
         marginBottom: 60,
     },
 
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: 17,
-        marginTop: 80,
+        marginTop: 60,
+        marginBottom: 30,
         width: '90%',
     },
 
@@ -96,9 +97,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 14,
         marginVertical:30,
+        width: '80%'
     },
 
     buttonStyle: {
-        marginTop: 50,
+        marginTop: 20,
     }
 })

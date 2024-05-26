@@ -10,6 +10,7 @@ import GoalTimeScreen from './screens/GoalTimeScreen';
 import WeightSelectorScreen from './screens/WeightSelectorScreen';
 import ActivityScreen from './screens/ActivityScreen';
 import ProfileCreationScreen from './screens/ProfileCreationScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
       {/* <WeightSelectorScreen /> */}
       {/* <GoalTimeScreen /> */}
       {/* <ActivityScreen /> */}
-      <ProfileCreationScreen />
+       <ProfileCreationScreen /> 
+      {/* <ProfileScreen /> */}
     </SafeAreaView>
   );
 }

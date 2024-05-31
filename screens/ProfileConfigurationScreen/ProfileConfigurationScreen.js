@@ -2,33 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import CustomButton from '../../components/customButton/customButton';
 import CustomInput from '../../components/CustomInput';
-import DropdownComponent from '../../components/DropdownComponent';
-import Logo from '../../assets/images/Logo.png';
 import DatePickerComponent from '../../components/DatePickerComponent';
+import GenderButton from '../../components/GenderButton';
 
 const ProfileConfigurationScreen = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [selectedGender, setSelectedGender] = useState(null);
-    const [selectedAge, setSelectedAge] = useState(null);
-    const [selectedWeight, setSelectedWeight] = useState(null);
 
     const onContinuePressed = () => {
         console.warn("Continue");
     }
 
-    const dataGender = [
-        { label: 'Male', value: 'Male' },
-        { label: 'Female', value: 'Female' },
-    ];
-
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Profile Creation</Text>
-            <Image
-                source={require('../../assets/images/Logo.png')}
-                style={styles.logo}
-            />
             <CustomInput
                 placeholder="First Name"
                 value={firstName}
@@ -43,30 +31,26 @@ const ProfileConfigurationScreen = () => {
                 secureTextEntry={false}
                 style={styles.customInputStyle}
             />
-            <View style={styles.rowContainer}>
-                <CustomInput
-                    placeholder="Age"
-                    value={selectedAge}
-                    setValue={setSelectedAge}
-                    secureTextEntry={false}
-                    style={styles.rowInput}
+
+            <View style={styles.genderContainer}>
+                <GenderButton
+                    onPress={() => setSelectedGender('male')}
+                    text="Male"
+                    iconName="male"
+                    iconColor="white"
+                    selected={selectedGender === 'male'}
                 />
-                <DropdownComponent
-                    data={dataGender}
-                    placeholder=""
-                    style={styles.customDropdownStyle}
-                    value={selectedGender}
-                    onChange={item => setSelectedGender(item.value)}
-                />
-                <CustomInput
-                    placeholder="Weight/kg"
-                    value={selectedWeight}
-                    setValue={setSelectedWeight}
-                    secureTextEntry={false}
-                    style={styles.rowInput}
+                <GenderButton
+                    onPress={() => setSelectedGender('female')}
+                    text="Female"
+                    iconName="female"
+                    iconColor="white"
+                    selected={selectedGender === 'female'}
                 />
             </View>
-            <DatePickerComponent />
+
+            <DatePickerComponent style={styles.customDate} />
+
             <CustomButton
                 style={styles.customButtonStyle}
                 text="Continue"
@@ -83,53 +67,40 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
     },
+
     header: {
-        marginTop: 40,
-        fontSize: 20,
+        marginTop: 50,
+        marginBottom: 110,
+        fontSize: 30,
         fontWeight: 'bold',
-        marginBottom: 10,
         justifyContent: 'center',
         textAlign: 'center',
     },
-    logo: {
-        width: 130,
-        height: 100,
-        borderRadius: 20,
-        justifyContent: 'center',
-        resizeMode: 'contain',
-        backgroundColor: '#fff',
-        marginBottom: 15,
-        marginTop: 5,
-    },
-    customInputStyle: {
-        width: '85%',
-        borderRadius: 15,
-        borderColor: '#203C3B',
+
+    genderContainer: {
+        flexDirection: 'row', 
+        width: '100%',
+        marginVertical: 40,
+        justifyContent: 'space-evenly',
     },
 
-    customDropdownStyle: {
-        width: '25%',
-        borderRadius: 8,
-        padding: 15,
-        backgroundColor: '#fff',
-        marginHorizontal: 25,
+    customInputStyle: {
+        width: '80%',
+        borderRadius: 15,
+        borderColor: '#203C3B',
+        borderWidth: 1,
+        marginVertical: 15,
+        padding: 10,
     },
 
     customButtonStyle: {
         marginTop: 100,
+        padding: 10,
+        width: 240,
+        height: 50,
+        justifyContent: "center",
     },
 
-    rowContainer: {
-        flexDirection: 'row',
-        padding: 10,
-    },
-
-    rowInput: {
-        width: '25%',
-        padding: 10,
-        borderColor: '#203C3B',
-        marginBottom: 40,
-    },
 });
 
 export default ProfileConfigurationScreen;

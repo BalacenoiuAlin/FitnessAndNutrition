@@ -11,19 +11,21 @@ import WeightSelectorScreen from './screens/WeightSelectorScreen';
 import ActivityScreen from './screens/ActivityScreen';
 import ProfileCreationScreen from './screens/ProfileCreationScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import HeightSelectorScreen from './screens/HeightSelectorScreen';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.root}>
       {/* <SignInScreen /> */}
-      {/*  <SignUpScreen /> */}
-      {/* <ProfileConfigurationScreen /> */}
+      {/* <SignUpScreen /> */} 
+      {/*} <ProfileConfigurationScreen />*/} 
       {/* <GoalScreen /> */}
       {/* <WeightSelectorScreen /> */}
       {/* <GoalTimeScreen /> */}
       {/* <ActivityScreen /> */}
-       <ProfileCreationScreen /> 
-      {/* <ProfileScreen /> */}
+      {/* <ProfileCreationScreen >*/} 
+      {/* <ProfileScreen /> */} 
+      <HeightSelectorScreen />
     </SafeAreaView>
   );
 }

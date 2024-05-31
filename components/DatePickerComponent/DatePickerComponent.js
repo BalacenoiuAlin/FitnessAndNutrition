@@ -1,50 +1,55 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, View, Text } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import { StyleSheet, Text, View } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import PropTypes from 'prop-types';
 
-const DatePickerComponent = () => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+function DatePickerComponent({ errorText, onDateChange }) {
+  const [curDate, setCurDate] = useState(new Date());
+
+  function handleDateChange(event, date) {
+    if (event.type === 'dismissed') return;
+    setCurDate(date);
+    onDateChange(date.getTime().toString());
+  }
 
   return (
     <View style={styles.container}>
-      <Button
-        title="Select your date of birth"
-        onPress={() => setOpen(true)}
-        color="#B4B4B4" // Adjust the button text color
-      />
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false);
-          setDate(date);
-        }}
-        onCancel={() => {
-          setOpen(false);
-        }}
-        textColor="#B4B4B4" 
-        theme="light" 
-        mode="date"
-      />
+      <View style={styles.innerContainer}>
+        <Text style={styles.label}>Enter your birthdate:</Text>
+        <DateTimePicker
+          value={curDate}
+          onChange={(event, date) => handleDateChange(event, date)}
+        />
+      </View>
+      {errorText && <Text style={styles.errText}>{errorText}</Text>}
     </View>
   );
+}
+
+DatePickerComponent.propTypes = {
+  onDateChange: PropTypes.func.isRequired,
+  errorText: PropTypes.string,
+};
+
+DatePickerComponent.defaultProps = {
+  errorText: '',
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginBottom: 20,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 30,
-    borderColor: '#203C3B',
+    marginBottom: 16,
   },
-  button: {
-    backgroundColor: '#6200ee',
-    padding: 10,
-    borderRadius: 5,
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: 18,
+  },
+  errText: {
+    color: '#420D09',
+    fontSize: 15,
+    marginTop: 2,
   },
 });
 

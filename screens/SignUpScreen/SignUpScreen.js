@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet, useWindowDimensions, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import Logo from '../../assets/images/Logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/customButton';
 
@@ -12,7 +11,7 @@ const SignUpScreen = () => {
     const [ConfirmPassword, setConfirmPassword] = useState('');
 
     const onSignUnPressed = () => {
-        console.warn("Sign Up");
+        alert(`You pressed sign up`);
     }
 
     const onAlreadyHaveAccountPressed = () => {

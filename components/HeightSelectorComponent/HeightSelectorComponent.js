@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-const WeightSelectorComponent = () => {
-  const [selectedWeight, setSelectedWeight] = useState(108);
-  const weights = Array.from({ length: 130 }, (_, i) => 40 + i);
+const HeightSelectorComponent = () => {
+  const [selectedHeight, setSelectedHeight] = useState(108);
+  const heights = Array.from({ length: 100 }, (_, i) => 130 + i);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => setSelectedWeight(item)} style={styles.itemContainer}>
-      <Text style={[styles.itemText, item === selectedWeight && styles.selectedItemText]}>
+    <TouchableOpacity onPress={() => setSelectedHeight(item)} style={styles.itemContainer}>
+      <Text style={[styles.itemText, item === selectedHeight && styles.selectedItemText]}>
         {item} CM
       </Text>
     </TouchableOpacity>
@@ -16,7 +16,7 @@ const WeightSelectorComponent = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={weights}
+        data={heights}
         keyExtractor={(item) => item.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WeightSelectorComponent;
+export default HeightSelectorComponent;

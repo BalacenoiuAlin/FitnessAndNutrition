@@ -10,8 +10,8 @@ const SignInScreen = () => {
     const [password, setPassword] = useState('');
 
     const onSignInPressed = () => {
-        console.warn("Sign In");
-    }
+        alert(`You pressed sign in`);
+    };
 
     const onForgotPasswordPressed = () => {
         console.warn("onForgotPasswordPressed");

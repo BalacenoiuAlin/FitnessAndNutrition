@@ -17,13 +17,14 @@ const App = () => {
     <SafeAreaView style={styles.root}>
       {/* <SignInScreen /> */}
       {/*  <SignUpScreen /> */}
-      {/* <ProfileConfigurationScreen /> */}
+       <ProfileConfigurationScreen /> 
       {/* <GoalScreen /> */}
       {/* <WeightSelectorScreen /> */}
       {/* <GoalTimeScreen /> */}
       {/* <ActivityScreen /> */}
-       <ProfileCreationScreen /> 
+      {/* <ProfileCreationScreen /> */}
       {/* <ProfileScreen /> */}
+      {/* <EducativeScreen /> */}
     </SafeAreaView>
   );
 }

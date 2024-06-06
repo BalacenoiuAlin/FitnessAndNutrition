@@ -12,6 +12,8 @@ import ActivityScreen from './screens/ActivityScreen';
 import ProfileCreationScreen from './screens/ProfileCreationScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import HeightSelectorScreen from './screens/HeightSelectorScreen';
+import EducativeScreen from './screens/EducativeScreen';
+import InformativeScreen from './screens/InformativeScreen/InformativeScreen';
 
 const App = () => {
   return (
@@ -25,7 +27,9 @@ const App = () => {
       {/* <ActivityScreen /> */}
       {/* <ProfileCreationScreen >*/} 
       {/* <ProfileScreen /> */} 
-      <HeightSelectorScreen />
+      {/* <HeightSelectorScreen /> */}
+      {/* <EducativeScreen/> */}
+      <InformativeScreen />
     </SafeAreaView>
   );
 }

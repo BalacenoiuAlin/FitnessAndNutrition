@@ -1,29 +1,54 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
 import EducativeContent from "../../contents/EducativeContent";
 
-const EducativeItem = ({ item }) => (
-  <View style={styles.container}>
-    <View style={styles.rowContainer}>
-      <Image source={item.imageUrl} style={styles.imageStyle} />
-      <View style={styles.columnContainer}>
-        <Text style={styles.titleStyle}>{item.title}</Text>
-        <Text style={styles.descriptionStyle}>{item.description}</Text>
-        <Text style={styles.dateStyle}>{item.date}</Text>
+const EducativeItem = ({ item, index, onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.touchable}>
+    <View style={styles.container}>
+      <View style={styles.rowContainer}>
+        <Image source={item.imageUrl} style={styles.imageStyle} />
+        <View style={styles.columnContainer}>
+          <Text style={styles.titleStyle}>{item.title}</Text>
+          <Text style={styles.descriptionStyle}>{item.description}</Text>
+          <Text style={styles.dateStyle}>{item.date}</Text>
+        </View>
       </View>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
-const KnowledgeComponent = () => (
-  <FlatList
-    data={EducativeContent}
-    renderItem={({ item }) => <EducativeItem item={item} />}
-    keyExtractor={(item) => item.id.toString()}
-  />
-);
+const KnowledgeComponent = ({ navigation }) => {
+  const handlePress = (index) => {
+    navigation.navigate('Informative', { index });
+  };
+
+  const renderHeader = () => (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerTitle}>Educative Content</Text>
+      <Text style={styles.headerDescription}>Explore various educational materials to enhance your knowledge.</Text>
+    </View>
+  );
+
+  return (
+    <FlatList
+      data={EducativeContent}
+      renderItem={({ item, index }) => (
+        <EducativeItem
+          item={item}
+          index={index}
+          onPress={() => handlePress(index)}
+        />
+      )}
+      keyExtractor={(item) => item.id.toString()}
+      ListHeaderComponent={renderHeader}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
+  touchable: {
+    marginVertical: 10,
+  },
   container: {
     flex: 1,
     backgroundColor: "#203C3B",
@@ -71,6 +96,25 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "normal",
     textAlign: 'justify',
+  },
+  headerContainer: {
+    backgroundColor: "#203C3B",
+    padding: 20,
+    marginTop: 60,
+    marginBottom: 10,
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: 5,
+  },
+  headerDescription: {
+    fontSize: 14,
+    color: "white",
+    fontWeight: "normal",
   },
 });
 

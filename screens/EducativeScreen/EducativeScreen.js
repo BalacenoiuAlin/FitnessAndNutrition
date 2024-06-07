@@ -11,9 +11,7 @@ const EducativeScreen = ({ navigation }) => {
       keyExtractor={(item) => item.key}
       renderItem={() => (
         <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.textStyle}>Expand your knowledge</Text>
-          </View>
+            <Text style={styles.textStyle}>Expand your knowledge !</Text>
           <KnowledgeComponent />
         </View>
       )}
@@ -24,21 +22,20 @@ const EducativeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#FFFFFF",
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 
   headerContainer: {
     justifyContent: 'center',
     alignContent: 'center',
-    marginVertical: 20,
+    marginHorizontal: '10%',
   },
-
   textStyle: {
-    textAlign: 'center', 
-    marginTop: 20,       
-    fontSize: 26,
-    fontWeight: 'bold',        
-    color: 'black',     
+    fontWeight: 'bold',
+    fontSize: 40,
+    marginBottom: 10a0,
   },
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, View, Text } from 'react-native';
 import InformativeComponent from '../../components/InformativeComponent';
 
-const InformativeScreen = ({ navigation }) => {
+const InformativeScreen = () => {
     const data = [{ key: '1' }];
 
     return (

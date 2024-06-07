@@ -1,64 +1,51 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image, Alert } from "react-native";
-import InformativeContent from "../../contents/InformativeContent";
-import CustomButton from "../customButton/customButton";
+import React from 'react';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import InformativeContent from '../../contents/InformativeContent';
+import CustomButton from '../customButton/customButton';
 
-const InformativeItem = ({ item, onBackPress }) => (
-  <View style={styles.headerContainer}>
-    <Text style={styles.titleStlye}>{item.title}</Text>
-    <View style={styles.bodyContainer}>
-      <Image source={item.imageUrl} style={styles.imageStyle} />
-      <Text style={styles.descriptionStyle}>{item.description}</Text>
-      <Text style={styles.dateStyle}>{item.date}</Text>
-      <CustomButton
-        text="Go back"
-        type="PRIMARY"
-        onPress={onBackPress}
-        style={styles.styleButton}
-      />
-    </View>
-  </View>
-);
-
-const InformativeComponent = () => {
-  const [backButtonPressed, setBackButtonPressed] = useState(false);
+const InformativeComponent = ({ route }) => {
+  const { index } = route.params;
+  const item = InformativeContent[index];
+  const navigation = useNavigation();
 
   const handleBackPress = () => {
-    setBackButtonPressed(true);
-    Alert.alert('Back button pressed');
+    navigation.goBack();
   };
 
   return (
-    <FlatList
-      data={InformativeContent}
-      renderItem={({ item }) => (
-        <InformativeItem
-          item={item}
-          onBackPress={handleBackPress}
+    <ScrollView contentContainerStyle={styles.contentContainerStyle}>
+      <Text style={styles.titleStyle}>{item.title}</Text>
+      <View style={styles.bodyContainer}>
+        <Image source={item.imageUrl} style={styles.imageStyle} />
+        <Text style={styles.descriptionStyle}>{item.description}</Text>
+        <Text style={styles.dateStyle}>{item.date}</Text>
+        <CustomButton
+          text="Go back"
+          type="PRIMARY"
+          onPress={handleBackPress}
+          style={styles.styleButton}
         />
-      )}
-      keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={styles.listContentContainer}
-    />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  contentContainerStyle: {
+    alignItems: 'center',
+    backgroundColor: '#203C3B',
+    paddingVertical: 20,
+  },
   bodyContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
+    width: '100%',
+    padding: 10,
   },
-  headerContainer: {
-    backgroundColor: '#203C3B',
-    alignItems: 'center',
-  },
-  bottomContainer: {
-    backgroundColor: '#203C3B',
-    alignItems: 'center',
-  },
-  titleStlye: {
+  titleStyle: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
@@ -94,6 +81,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     backgroundColor: '#203C3B',
     width: 150,
+    marginTop: 20,
   },
 });
 

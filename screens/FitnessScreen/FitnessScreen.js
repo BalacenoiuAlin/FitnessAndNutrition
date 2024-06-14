@@ -4,13 +4,13 @@ import CustomButton from '../../components/customButton/customButton';
 import MapPhoto from '../../assets/images/MapImage.jpg';
 import ExercisePhoto from '../../assets/images/ExercisePhoto.jpg';
 
-const FitnessScreen = () => {
+const FitnessScreen = ({ navigation }) => {
   const handleMap = () => {
-    console.log('Map button pressed');
+    navigation.navigate('Map');
   };
 
   const handleExercise = () => {
-    console.log('Exercise button pressed');
+    navigation.navigate('Exercise');
   };
 
   return (
@@ -40,7 +40,6 @@ const FitnessScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

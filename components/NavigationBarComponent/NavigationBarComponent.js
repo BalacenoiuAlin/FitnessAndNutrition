@@ -7,9 +7,12 @@ import EducativeScreen from '../../screens/EducativeScreen';
 import FitnessScreen from '../../screens/FitnessScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import InformativeScreen from '../../screens/InformativeScreen';
+import ExerciseScreen from '../../screens/ExerciseScreen';
+import MapScreen from '../../screens/MapScreen';
 
 const Tab = createBottomTabNavigator();
 const EducativeStack = createStackNavigator();
+const FitnessStack = createStackNavigator();
 
 const EducativeStackNavigator = () => {
   return (
@@ -36,12 +39,12 @@ const FitnessStackNavigator = () => {
         component={FitnessScreen}
         options={{headerShown: false }}
       />
-      <MapStack.Screen 
+      <FitnessStack.Screen 
         name="Map"
         component={MapScreen}
         options={{headerShown: false}}
       />
-      <ExerciseScreen
+      <FitnessStack.Screen
         name="Exercise"
         component={ExerciseScreen}
         options={{headerShown: false}}
@@ -77,7 +80,7 @@ const NavigationBarComponent = () => {
     >
       <Tab.Screen name="Calorie" component={CalorieScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Educative" component={EducativeStackNavigator} options={{ headerShown: false }} />
-      <Tab.Screen name="Fitness" component={FitnessScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Fitness" component={FitnessStackNavigator} options={{ headerShown: false }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );

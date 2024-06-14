@@ -1,12 +1,54 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CalorieScreen from '../../screens/CalorieScreen';
 import EducativeScreen from '../../screens/EducativeScreen';
 import FitnessScreen from '../../screens/FitnessScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
+import InformativeScreen from '../../screens/InformativeScreen';
 
 const Tab = createBottomTabNavigator();
+const EducativeStack = createStackNavigator();
+
+const EducativeStackNavigator = () => {
+  return (
+    <EducativeStack.Navigator>
+      <EducativeStack.Screen
+        name="Educative"
+        component={EducativeScreen}
+        options={{ headerShown: false }}
+      />
+      <EducativeStack.Screen
+        name="Informative"
+        component={InformativeScreen}
+        options={{ headerShown: false }}
+      />
+    </EducativeStack.Navigator>
+  );
+};
+
+const FitnessStackNavigator = () => {
+  return (
+    <FitnessStack.Navigator>
+      <FitnessStack.Screen 
+        name="Fitness"
+        component={FitnessScreen}
+        options={{headerShown: false }}
+      />
+      <MapStack.Screen 
+        name="Map"
+        component={MapScreen}
+        options={{headerShown: false}}
+      />
+      <ExerciseScreen
+        name="Exercise"
+        component={ExerciseScreen}
+        options={{headerShown: false}}
+      />
+    </FitnessStack.Navigator>
+  )
+}
 
 const NavigationBarComponent = () => {
   return (
@@ -34,7 +76,7 @@ const NavigationBarComponent = () => {
       })}
     >
       <Tab.Screen name="Calorie" component={CalorieScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Educative" component={EducativeScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Educative" component={EducativeStackNavigator} options={{ headerShown: false }} />
       <Tab.Screen name="Fitness" component={FitnessScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
     </Tab.Navigator>

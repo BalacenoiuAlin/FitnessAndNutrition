@@ -9,6 +9,7 @@ import ProfileScreen from '../../screens/ProfileScreen';
 import InformativeScreen from '../../screens/InformativeScreen';
 import ExerciseScreen from '../../screens/ExerciseScreen';
 import MapScreen from '../../screens/MapScreen';
+import ExerciseInfoScreen from '../../screens/ExerciseInfoScreen';
 
 const Tab = createBottomTabNavigator();
 const EducativeStack = createStackNavigator();
@@ -47,6 +48,11 @@ const FitnessStackNavigator = () => {
       <FitnessStack.Screen
         name="Exercise"
         component={ExerciseScreen}
+        options={{headerShown: false}}
+      />
+      <FitnessStack.Screen
+        name="ExerciseInfo"
+        component={ExerciseInfoScreen}
         options={{headerShown: false}}
       />
     </FitnessStack.Navigator>

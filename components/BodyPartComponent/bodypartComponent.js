@@ -50,7 +50,7 @@ const BodyPartComponent = () => {
   }, []);
 
   const handleOnPress = () => {
-    navigation.navigate('FitnessScreen');
+    navigation.navigate('Fitness');
   };
 
   const handleImagePress = (bodyPart) => {

@@ -14,7 +14,7 @@ const InDepthExerciseScreen = ({ route }) => {
         fetch(`https://exercisedb.p.rapidapi.com/exercises/exercise/${exercise.id}`, {
             method: 'GET',
             headers: {
-                'x-rapidapi-key': '0c5dff1befmsh9149b108eb957d2p10bac9jsn91a8d15cd5c4',
+                //'x-rapidapi-key': '394b133098mshc80e29dadfe2e78p1df839jsn843be704bee8',
                 'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
             }
         })

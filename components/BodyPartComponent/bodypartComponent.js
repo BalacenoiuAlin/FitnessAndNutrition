@@ -10,6 +10,7 @@ import Lowerlegs from '../../assets/images/lowerlegs.webp';
 import Upperlegs from '../../assets/images/upperlegs.webp';
 import Neck from '../../assets/images/neck.webp';
 import Cardio from '../../assets/images/cardio.webp';
+import Waist from '../../assets/images/waist.webp'
 import CustomButton from '../customButton/customButton';
 
 const BodyPartComponent = () => {
@@ -28,13 +29,14 @@ const BodyPartComponent = () => {
     'upper legs': Upperlegs,
     'neck': Neck,
     'cardio': Cardio,
+    'waist': Waist,
   };
 
   useEffect(() => {
     fetch('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '0c5dff1befmsh9149b108eb957d2p10bac9jsn91a8d15cd5c4',
+        //'x-rapidapi-key': '394b133098mshc80e29dadfe2e78p1df839jsn843be704bee8',
         'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
       }
     })

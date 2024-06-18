@@ -12,7 +12,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "maps": {
+          "provider": "apple"
+        }
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to show you relevant maps."
+      }
     },
     "android": {
       "adaptiveIcon": {

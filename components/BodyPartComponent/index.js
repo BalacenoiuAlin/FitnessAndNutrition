@@ -1,1 +1,1 @@
-export { default } from './BodyPartComponent';
+export { default } from './bodypartComponent';

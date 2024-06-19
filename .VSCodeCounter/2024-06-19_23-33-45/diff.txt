@@ -1,0 +1,38 @@
+Date : 2024-06-19 23:33:45
+Directory : c:\Users\alinb\FitnessAndNutrition
+Total : 7 files,  766 codes, 0 comments, 28 blanks, all 794 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |          5 |        455 |          0 |         28 |        483 |
+| JSON       |          2 |        311 |          0 |          0 |        311 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                             | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                |          7 |        766 |          0 |         28 |        794 |
+| . (Files)                                                                                        |          2 |        311 |          0 |          0 |        311 |
+| components                                                                                       |          4 |        297 |          0 |         19 |        316 |
+| components\DashboardComponent                                                                    |          2 |        149 |          0 |         10 |        159 |
+| components\MicroDashboardComponent                                                               |          2 |        148 |          0 |          9 |        157 |
+| screens                                                                                          |          1 |        158 |          0 |          9 |        167 |
+| screens\CalorieScreen                                                                            |          1 |        158 |          0 |          9 |        167 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                         | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\alinb\FitnessAndNutrition\components\DashboardComponent\DashboardComponent.js           | JavaScript |        148 |          0 |         10 |        158 |
+| c:\Users\alinb\FitnessAndNutrition\components\DashboardComponent\index.js                        | JavaScript |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\MicroDashboardComponent\MicroDashboardComponent.js | JavaScript |        147 |          0 |          9 |        156 |
+| c:\Users\alinb\FitnessAndNutrition\components\MicroDashboardComponent\index.js                   | JavaScript |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\package-lock.json                                             | JSON       |        307 |          0 |          0 |        307 |
+| c:\Users\alinb\FitnessAndNutrition\package.json                                                  | JSON       |          4 |          0 |          0 |          4 |
+| c:\Users\alinb\FitnessAndNutrition\screens\CalorieScreen\CalorieScreen.js                        | JavaScript |        158 |          0 |          9 |        167 |
+| Total                                                                                            |            |        766 |          0 |         28 |        794 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

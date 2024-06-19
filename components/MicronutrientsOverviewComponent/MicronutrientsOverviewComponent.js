@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const MicroDashboardComponent = () => {
+const MicronutrientsOverviewComponent = ({ navigation }) => {
   const micronutrients = [
     { name: 'Vitamin A', intake: 70, goal: 100, type: 'Vitamin' },
     { name: 'Vitamin C', intake: 60, goal: 90, type: 'Vitamin' },
@@ -34,6 +34,15 @@ const MicroDashboardComponent = () => {
     { name: 'Choline', intake: 550, goal: 550, type: 'Mineral' },
   ];
 
+  const vitaminNutrients = micronutrients.filter(nutrient => nutrient.type === 'Vitamin');
+  const mineralNutrients = micronutrients.filter(nutrient => nutrient.type === 'Mineral');
+
+  const totalVitaminIntake = vitaminNutrients.reduce((total, nutrient) => total + nutrient.intake, 0);
+  const totalVitaminGoal = vitaminNutrients.reduce((total, nutrient) => total + nutrient.goal, 0);
+
+  const totalMineralIntake = mineralNutrients.reduce((total, nutrient) => total + nutrient.intake, 0);
+  const totalMineralGoal = mineralNutrients.reduce((total, nutrient) => total + nutrient.goal, 0);
+
   const ProgressBar = ({ value, maxValue }) => {
     const progress = (value / maxValue) * 100;
     return (
@@ -46,15 +55,18 @@ const MicroDashboardComponent = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {micronutrients.map((nutrient, index) => (
-        <View key={index} style={styles.nutrientItem}>
-          <Text style={styles.nutrientText}>{nutrient.name}</Text>
-          <ProgressBar value={nutrient.intake} maxValue={nutrient.goal} />
-          <Text style={styles.nutrientValue}>{nutrient.intake} / {nutrient.goal} mg</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Micronutrients')}>
+      <View style={styles.overallProgressContainer}>
+        <Text style={styles.overallText}>Vitamins</Text>
+        <ProgressBar value={totalVitaminIntake} maxValue={totalVitaminGoal} />
+        <Text style={styles.overallValue}>{totalVitaminIntake} / {totalVitaminGoal} mg</Text>
+      </View>
+      <View style={styles.overallProgressContainer}>
+        <Text style={styles.overallText}>Minerals</Text>
+        <ProgressBar value={totalMineralIntake} maxValue={totalMineralGoal} />
+        <Text style={styles.overallValue}>{totalMineralIntake} / {totalMineralGoal} mg</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -64,32 +76,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 15,
     backgroundColor: '#FFFFFF',
+    marginVertical: 20,
     borderRadius: 15,
-    borderWidth: 1,
+    borderWidth: 0.1,
     borderColor: '#203C3B',
     width: '95%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowRadius: 3.00,
+    elevation: 3,
     padding: 20,
   },
-  nutrientItem: {
+  overallProgressContainer: {
     width: '100%',
     marginBottom: 10,
     alignItems: 'center',
   },
-  nutrientText: {
-    fontSize: 16,
+  overallText: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#203C3B',
+    textAlign: 'center',
   },
-  nutrientValue: {
-    fontSize: 14,
+  overallValue: {
+    fontSize: 16,
     fontWeight: '400',
     color: '#203C3B',
     marginTop: 5,
+    textAlign: 'center',
   },
   progressBarWrapper: {
     flexDirection: 'row',
@@ -110,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MicroDashboardComponent;
+export default MicronutrientsOverviewComponent;

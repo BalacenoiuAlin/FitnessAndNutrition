@@ -11,10 +11,29 @@ import ExerciseScreen from '../../screens/ExerciseScreen';
 import MapScreen from '../../screens/MapScreen';
 import ExerciseInfoScreen from '../../screens/ExerciseInfoScreen';
 import InDepthExerciseScreen from '../../screens/InDepthExerciseScreen';
+import MicronutrientsScreen from '../../screens/MicronutrientsScreen';
 
 const Tab = createBottomTabNavigator();
 const EducativeStack = createStackNavigator();
 const FitnessStack = createStackNavigator();
+const CalorieStack = createStackNavigator();
+
+const CalorieStackNavigator = () => {
+  return (
+    <CalorieStack.Navigator>
+      <CalorieStack.Screen
+        name="Calorie"
+        component={CalorieScreen}
+        options={{ headerShown: false }}
+      />
+      <CalorieStack.Screen
+        name="Micronutrients"
+        component={MicronutrientsScreen}
+        options={{ headerShown: false }}
+      />
+    </CalorieStack.Navigator>
+  );
+};
 
 const EducativeStackNavigator = () => {
   return (
@@ -39,31 +58,31 @@ const FitnessStackNavigator = () => {
       <FitnessStack.Screen 
         name="Fitness"
         component={FitnessScreen}
-        options={{headerShown: false }}
+        options={{ headerShown: false }}
       />
       <FitnessStack.Screen 
         name="Map"
         component={MapScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <FitnessStack.Screen
         name="Exercise"
         component={ExerciseScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <FitnessStack.Screen
         name="ExerciseInfo"
         component={ExerciseInfoScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <FitnessStack.Screen
         name="InDepthExercise"
         component={InDepthExerciseScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
     </FitnessStack.Navigator>
-  )
-}
+  );
+};
 
 const NavigationBarComponent = () => {
   return (
@@ -90,7 +109,7 @@ const NavigationBarComponent = () => {
         tabBarLabelStyle: { fontSize: 12 },
       })}
     >
-      <Tab.Screen name="Calorie" component={CalorieScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Calorie" component={CalorieStackNavigator} options={{ headerShown: false }} />
       <Tab.Screen name="Educative" component={EducativeStackNavigator} options={{ headerShown: false }} />
       <Tab.Screen name="Fitness" component={FitnessStackNavigator} options={{ headerShown: false }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />

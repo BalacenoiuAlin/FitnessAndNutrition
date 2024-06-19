@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, TextInput, TouchableOpacity, Button } from 'react-native';
 import axios from 'axios';
 import DashboardComponent from '../../components/DashboardComponent/DashboardComponent';
-import MicroDashboardComponent from '../../components/MicroDashboardComponent/MicroDashboardComponent';
+import MicronutrientsOverviewComponent from '../../components/MicronutrientsOverviewComponent/MicronutrientsOverviewComponent';
 
-const CalorieScreen = () => {
+const CalorieScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -106,10 +106,8 @@ const CalorieScreen = () => {
         value={searchQuery}
         onChangeText={handleSearch}
       />
-      <DashboardComponent 
-      />
-      <MicroDashboardComponent
-      />
+      <DashboardComponent />
+      <MicronutrientsOverviewComponent navigation={navigation} />
       {suggestions.length > 0 && (
         <View style={styles.suggestionsContainer}>
           {suggestions.map((suggestion, index) => (
@@ -150,6 +148,7 @@ const styles = StyleSheet.create({
   searchBar: {
     height: 40,
     marginTop: 50,
+    marginBottom: 20,
     backgroundColor: '#FFFFFF',
     borderColor: '#203C3B',
     borderRadius: 5,

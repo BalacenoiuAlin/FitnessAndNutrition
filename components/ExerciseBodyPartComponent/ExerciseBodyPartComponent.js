@@ -48,7 +48,6 @@ const ExerciseBodyPartComponent = () => {
   };
 
   const handleContainerPress = (item) => {
-    console.log('Navigating to InDepthExercise with item:', item); // Debug log
     navigation.navigate('InDepthExercise', { exercise: item });
   };
 

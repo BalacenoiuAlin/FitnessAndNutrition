@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-const MicroDashboardComponent = () => {
+const MicroDashboardComponent = ({onPress}) => {
   const micronutrients = [
     { name: 'Vitamin A', intake: 70, goal: 100, type: 'Vitamin' },
     { name: 'Vitamin C', intake: 60, goal: 90, type: 'Vitamin' },
@@ -62,17 +62,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
-    borderWidth: 1,
+    borderWidth: 0.1,
     borderColor: '#203C3B',
     width: '95%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
     padding: 20,
   },
   nutrientItem: {

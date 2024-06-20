@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     backgroundColor: '#FFFFFF',
     marginVertical: 20,
     borderRadius: 15,
@@ -85,8 +85,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.00,
-    elevation: 3,
-    padding: 20,
+    padding: 10,
   },
   overallProgressContainer: {
     width: '100%',

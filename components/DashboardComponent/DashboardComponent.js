@@ -2,19 +2,18 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const DashboardComponent = () => {
-  const totalCalories = 2117;
-  const eatenCalories = 1291;
-  const burnedCalories = 244;
-  const remainingCalories = totalCalories - eatenCalories + burnedCalories;
+  const totalCalories = 2000;
+  const eatenCalories = 1000;
+  const remainingCalories = totalCalories - eatenCalories;
 
-  const carbIntake = 206;
-  const carbGoal = 258;
+  const carbIntake = 100;
+  const carbGoal = 300;
 
-  const proteinIntake = 35;
-  const proteinGoal = 103;
+  const proteinIntake = 100;
+  const proteinGoal = 200;
 
-  const fatIntake = 32;
-  const fatGoal = 68;
+  const fatIntake = 100;
+  const fatGoal = 200;
 
   const ProgressBar = ({ value, maxValue }) => {
     const progress = (value / maxValue) * 100;
@@ -70,9 +69,10 @@ const DashboardComponent = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
     borderWidth: 0.1,

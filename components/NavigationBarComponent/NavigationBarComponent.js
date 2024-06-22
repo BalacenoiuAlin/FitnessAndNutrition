@@ -13,6 +13,7 @@ import ExerciseInfoScreen from '../../screens/ExerciseInfoScreen';
 import InDepthExerciseScreen from '../../screens/InDepthExerciseScreen';
 import MicronutrientsScreen from '../../screens/MicronutrientsScreen';
 import FoodScreen from '../../screens/FoodScreen';
+import BarcodeScannerComponent from '../BarcodeScannerComponent/BarcodeScannerComponent';
 
 const Tab = createBottomTabNavigator();
 const EducativeStack = createStackNavigator();
@@ -35,6 +36,11 @@ const CalorieStackNavigator = () => {
       <CalorieStack.Screen
         name="Food"
         component={FoodScreen}
+        options={{ headerShown: false }}
+      />
+      <CalorieStack.Screen
+        name="BarcodeScanner"
+        component={BarcodeScannerComponent}
         options={{ headerShown: false }}
       />
     </CalorieStack.Navigator>

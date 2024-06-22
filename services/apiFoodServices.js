@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FOOD_API_KEY, FOOD_ID_KEY } from '@env';
 
-// Asigură-te că cheile API sunt definite
+// Ensure the API keys are defined
 if (!FOOD_API_KEY || !FOOD_ID_KEY) {
   throw new Error('API keys are missing. Please check your environment variables.');
 }
@@ -23,14 +23,17 @@ const autocompleteClient = axios.create({
   },
 });
 
-export const searchFoods = async (query) => {
+export const searchFoods = async (query, type = 'keyword') => {
   try {
-    const response = await parserClient.get('', {
-      params: {
-        ingr: query,
-        'nutrition-type': 'logging',
-      },
-    });
+    const params = {
+      ingr: type === 'keyword' ? query : undefined,
+      upc: type === 'barcode' ? query : undefined,
+      'nutrition-type': 'logging',
+    };
+
+    console.log('Query Params:', params); // Debugging statement
+
+    const response = await parserClient.get('', { params });
 
     if (!response.data || !response.data.parsed) {
       throw new Error('Invalid response structure');

@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const MicronutrientsOverviewComponent = ({ navigation, totalVitamins, totalMinerals }) => {
+const MicronutrientsOverviewComponent = ({ navigation, totalVitamins = 0, totalMinerals = 0 }) => {
+  const [overallVitamins, setOverallVitamins] = useState(0);
+  const [overallMinerals, setOverallMinerals] = useState(0);
+
+  useEffect(() => {
+    setOverallVitamins(totalVitamins);
+    setOverallMinerals(totalMinerals);
+  }, [totalVitamins, totalMinerals]);
+
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Micronutrients')}>
       <View style={styles.overallProgressContainer}>
         <Text style={styles.overallText}>Total Vitamins</Text>
-        <Text style={styles.overallValue}>{totalVitamins} mg</Text>
+        <Text style={styles.overallValue}>{overallVitamins.toFixed(2)} mg</Text>
       </View>
       <View style={styles.overallProgressContainer}>
         <Text style={styles.overallText}>Total Minerals</Text>
-        <Text style={styles.overallValue}>{totalMinerals} mg</Text>
+        <Text style={styles.overallValue}>{overallMinerals.toFixed(2)} mg</Text>
       </View>
     </TouchableOpacity>
   );

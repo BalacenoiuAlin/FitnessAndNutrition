@@ -15,6 +15,14 @@ const parserClient = axios.create({
   },
 });
 
+const autocompleteClient = axios.create({
+  baseURL: 'https://api.edamam.com/auto-complete',
+  params: {
+    app_id: FOOD_ID_KEY,
+    app_key: FOOD_API_KEY,
+  },
+});
+
 export const searchFoods = async (query) => {
   try {
     const response = await parserClient.get('', {
@@ -65,6 +73,21 @@ export const searchFoods = async (query) => {
     }));
   } catch (error) {
     console.error('Error fetching food data:', error);
+    throw error;
+  }
+};
+
+export const getAutocompleteSuggestions = async (query) => {
+  try {
+    const response = await autocompleteClient.get('', {
+      params: {
+        q: query,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching autocomplete suggestions:', error);
     throw error;
   }
 };

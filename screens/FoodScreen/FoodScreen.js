@@ -96,6 +96,21 @@ const FoodScreen = ({ route }) => {
     }
   };
 
+  const triggerSearch = async () => {
+    setSearchQuery('');  // Resetează câmpul de căutare
+    setLoading(true);    // Arată indicatorul de încărcare
+
+    try {
+      const result = await searchFoods('');  // Fă o căutare cu un query gol sau cu un query implicit
+      setFoodData(result);
+      setSuggestions([]);
+    } catch (error) {
+      console.error('Error fetching food data:', error);
+    } finally {
+      setLoading(false);  // Oprește indicatorul de încărcare
+    }
+  };
+
   const handleAutocomplete = async (query) => {
     setSearchQuery(query);
     if (query.length > 1) {
@@ -135,7 +150,7 @@ const FoodScreen = ({ route }) => {
     navigation.navigate('Calorie');
   };
 
-  const handleAddFood = (food, grams) => {
+  const handleAddFood = async (food, grams) => {
     const roundToTwoDecimals = (value) => Math.round(value * 100) / 100;
     const updatedFood = {
       ...food,
@@ -176,8 +191,9 @@ const FoodScreen = ({ route }) => {
     };
 
     setAddedFoods((prevFoods) => [...prevFoods, updatedFood]);
-    setSelectedFood(null);
+    setSelectedFood(null);  // Ascunde detaliile alimentului după adăugare
     setSearchQuery('');
+    await triggerSearch();  // Declanșează căutarea automată
   };
 
   const handleDeleteFood = (index) => {
@@ -185,41 +201,24 @@ const FoodScreen = ({ route }) => {
   };
 
   const calculateTotalNutrients = (nutrient) => {
-    return addedFoods.reduce((acc, food) => acc + (food.nutrients[nutrient] || 0), 0);
+    return addedFoods.reduce((acc, food) => {
+      return acc + (food.nutrients ? food.nutrients[nutrient] || 0 : 0);
+    }, 0);
   };
 
-  const nutrients = {
-    totalCalories: calculateTotalNutrients('ENERC_KCAL'),
-    totalProtein: calculateTotalNutrients('PROCNT'),
-    totalCarbs: calculateTotalNutrients('CHOCDF'),
-    totalFat: calculateTotalNutrients('FAT'),
-    calcium: calculateTotalNutrients('CA'),
-    cholesterol: calculateTotalNutrients('CHOLE'),
-    fiber: calculateTotalNutrients('FIBTG'),
-    iron: calculateTotalNutrients('FE'),
-    magnesium: calculateTotalNutrients('MG'),
-    potassium: calculateTotalNutrients('K'),
-    sodium: calculateTotalNutrients('NA'),
-    sugar: calculateTotalNutrients('SUGAR'),
-    vitaminA: calculateTotalNutrients('VITA_RAE'),
-    vitaminB12: calculateTotalNutrients('VITB12'),
-    vitaminB6: calculateTotalNutrients('VITB6A'),
-    vitaminC: calculateTotalNutrients('VITC'),
-    vitaminD: calculateTotalNutrients('VITD'),
-    vitaminK: calculateTotalNutrients('VITK1'),
-    zinc: calculateTotalNutrients('ZN'),
-    monounsaturatedFat: calculateTotalNutrients('FAMS'),
-    polyunsaturatedFat: calculateTotalNutrients('FAPU'),
-    saturatedFat: calculateTotalNutrients('FASAT'),
-    transFat: calculateTotalNutrients('FATRN'),
-    folateDFE: calculateTotalNutrients('FOLDFE'),
-    folateFood: calculateTotalNutrients('FOLFD'),
-    folicAcid: calculateTotalNutrients('FOLAC'),
-    niacin: calculateTotalNutrients('NIA'),
-    phosphorus: calculateTotalNutrients('P'),
-    riboflavin: calculateTotalNutrients('RIBF'),
-    thiamin: calculateTotalNutrients('THIA'),
+  const vitaminNutrients = ['VITA_RAE', 'VITC', 'VITD', 'VITE', 'VITK1', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'FOLDFE', 'VITB12', 'VITB7', 'VITB5'];
+  const mineralNutrients = ['CA', 'FE', 'MG', 'P', 'K', 'NA', 'ZN', 'CU', 'MN', 'SE', 'I', 'CR', 'MO', 'CL'];
+  
+  const calculateTotalNutrientsByCategory = (nutrientList) => {
+    const totals = {};
+    nutrientList.forEach(nutrient => {
+      totals[nutrient] = calculateTotalNutrients(nutrient);
+    });
+    return totals;
   };
+  
+  const totalVitamins = calculateTotalNutrientsByCategory(vitaminNutrients) || {};
+  const totalMinerals = calculateTotalNutrientsByCategory(mineralNutrients) || {};
 
   return (
     <KeyboardAvoidingView
@@ -277,12 +276,16 @@ const FoodScreen = ({ route }) => {
             ))}
             <View style={styles.infoContainer}>
               <DashboardComponent 
-                totalCalories={nutrients.totalCalories}
-                totalProtein={nutrients.totalProtein}
-                totalCarbs={nutrients.totalCarbs}
-                totalFat={nutrients.totalFat}
+                totalCalories={calculateTotalNutrients('ENERC_KCAL')}
+                totalProtein={calculateTotalNutrients('PROCNT')}
+                totalCarbs={calculateTotalNutrients('CHOCDF')}
+                totalFat={calculateTotalNutrients('FAT')}
               />
-              <MicronutrientsOverviewComponent navigation={navigation}  />
+              <MicronutrientsOverviewComponent 
+                navigation={navigation} 
+                totalVitamins={totalVitamins} 
+                totalMinerals={totalMinerals}
+              />
             </View>
             <CustomButton text='Go Back' type='PRIMARY' onPress={handleOnPress} style={styles.buttonStyle} />
           </ScrollView>

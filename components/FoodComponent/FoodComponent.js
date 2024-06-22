@@ -15,7 +15,7 @@ const ProgressBar = ({ value, maxValue }) => {
   );
 };
 
-const FoodComponent = ({ name, kcals, proteinIntake, carbIntake, fatIntake, grams, onDelete }) => {
+const FoodComponent = ({ name, kcals, proteinIntake, carbIntake, fatIntake, grams, onDelete, nutrients }) => {
   const proteinGoal = 300;
   const carbGoal = 300;
   const fatGoal = 100;
@@ -64,6 +64,7 @@ FoodComponent.propTypes = {
   fatIntake: PropTypes.number.isRequired,
   grams: PropTypes.number.isRequired,
   onDelete: PropTypes.func.isRequired,
+  nutrients: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({

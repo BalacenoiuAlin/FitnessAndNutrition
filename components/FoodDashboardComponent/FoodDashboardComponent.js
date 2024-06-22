@@ -33,7 +33,7 @@ const FoodDashboardComponent = ({ mealType, currentKcals, totalKcals }) => {
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.mealType}>{mealType}</Text>
-        <Text style={styles.kcals}>{currentKcals} / {totalKcals} kcal</Text>
+        <Text style={styles.kcals}>{currentKcals} kcal</Text>
       </View>
       <View style={styles.addButtonContainer}>
         <Icon name="plus-circle" size={35} color="#203C3B" />

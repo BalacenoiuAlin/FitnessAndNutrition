@@ -1,19 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 
-const DashboardComponent = () => {
-  const totalCalories = 2000;
-  const eatenCalories = 1000;
-  const remainingCalories = totalCalories - eatenCalories;
-
-  const carbIntake = 100;
-  const carbGoal = 300;
-
-  const proteinIntake = 100;
-  const proteinGoal = 200;
-
-  const fatIntake = 100;
-  const fatGoal = 200;
+const DashboardComponent = ({ totalCalories, totalProtein, totalCarbs, totalFat }) => {
+  const totalGoalCalories = 2000;
+  const proteinGoal = 100;
+  const carbGoal = 200;
+  const fatGoal = 100;
 
   const ProgressBar = ({ value, maxValue }) => {
     const progress = (value / maxValue) * 100;
@@ -39,32 +32,42 @@ const DashboardComponent = () => {
     );
   };
 
+  // Ensure values are numbers and have default to 0 if undefined
+  const safeFixed = (value) => (typeof value === 'number' ? value.toFixed(2) : '0.00');
+
   return (
     <View style={styles.container}>
       <View style={styles.calorieContainer}>
         <Text style={styles.calorieText}>Calories</Text>
-        <ProgressBarCalorie value={eatenCalories} maxValue={totalCalories} />
-        <Text style={styles.calorieValue}>{eatenCalories} / {totalCalories} kcal</Text>
+        <ProgressBarCalorie value={totalCalories} maxValue={totalGoalCalories} />
+        <Text style={styles.calorieValue}>{safeFixed(totalCalories)} kcal</Text>
       </View>
       <View style={styles.macroContainer}>
         <View style={styles.macroItem}>
           <Text style={styles.macroText}>Protein</Text>
-          <ProgressBar value={proteinIntake} maxValue={proteinGoal} />
-          <Text style={styles.macroValue}>{proteinIntake} / {proteinGoal} g</Text>
+          <ProgressBar value={totalProtein} maxValue={proteinGoal} />
+          <Text style={styles.macroValue}>{safeFixed(totalProtein)} g</Text>
         </View>
         <View style={styles.macroItem}>
           <Text style={styles.macroText}>Carbs</Text>
-          <ProgressBar value={carbIntake} maxValue={carbGoal} />
-          <Text style={styles.macroValue}>{carbIntake} / {carbGoal} g</Text>
+          <ProgressBar value={totalCarbs} maxValue={carbGoal} />
+          <Text style={styles.macroValue}>{safeFixed(totalCarbs)} g</Text>
         </View>
         <View style={styles.macroItem}>
           <Text style={styles.macroText}>Fat</Text>
-          <ProgressBar value={fatIntake} maxValue={fatGoal} />
-          <Text style={styles.macroValue}>{fatIntake} / {fatGoal} g</Text>
+          <ProgressBar value={totalFat} maxValue={fatGoal} />
+          <Text style={styles.macroValue}>{safeFixed(totalFat)} g</Text>
         </View>
       </View>
     </View>
   );
+};
+
+DashboardComponent.propTypes = {
+  totalCalories: PropTypes.number.isRequired,
+  totalProtein: PropTypes.number.isRequired,
+  totalCarbs: PropTypes.number.isRequired,
+  totalFat: PropTypes.number.isRequired,
 };
 
 const styles = StyleSheet.create({

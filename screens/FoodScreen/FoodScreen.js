@@ -1,14 +1,18 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ActivityIndicator, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../../components/customButton/customButton';
+import FoodComponent from '../../components/FoodComponent/FoodComponent';
+import DashboardComponent from '../../components/DashboardComponent/DashboardComponent';
+import MicroDashboardComponent from '../../components/MicroDashboardComponent/MicroDashboardComponent';
+import FoodDetailComponent from '../../components/FoodDetailComponent/FoodDetailComponent';
+import { searchFoods, getAutocompleteSuggestions } from '../../services/apiFoodServices';
 import Breakfast from '../../assets/images/breakfast.jpg';
 import Lunch from '../../assets/images/lunch.jpg';
 import Dinner from '../../assets/images/dinner.jpg';
 import Snacks from '../../assets/images/snacks.webp';
-import CustomButton from '../../components/customButton/customButton';
-import FoodComponent from '../../components/FoodComponent/FoodComponent'
-import DashboardComponent from '../../components/DashboardComponent/DashboardComponent';
 import MicronutrientsOverviewComponent from '../../components/MicronutrientsOverviewComponent/MicronutrientsOverviewComponent';
-import { useNavigation } from '@react-navigation/native';
 
 const getMealImage = (mealType) => {
   switch (mealType.toLowerCase()) {
@@ -28,45 +32,263 @@ const getMealImage = (mealType) => {
 const FoodScreen = ({ route }) => {
   const { mealType, currentKcals, totalKcals } = route.params;
   const mealImage = getMealImage(mealType);
-
+  const [foodData, setFoodData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedFood, setSelectedFood] = useState(null);
+  const [addedFoods, setAddedFoods] = useState([]);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await searchFoods(mealType);
+        setFoodData(result);
+      } catch (error) {
+        console.error('Error fetching food data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const loadStoredFoods = async () => {
+      try {
+        const storedFoods = await AsyncStorage.getItem('addedFoods');
+        if (storedFoods !== null) {
+          setAddedFoods(JSON.parse(storedFoods));
+        }
+      } catch (error) {
+        console.error('Error loading stored foods:', error);
+      }
+    };
+
+    fetchData();
+    loadStoredFoods();
+  }, [mealType]);
+
+  useEffect(() => {
+    const storeFoods = async () => {
+      try {
+        await AsyncStorage.setItem('addedFoods', JSON.stringify(addedFoods));
+      } catch (error) {
+        console.error('Error storing foods:', error);
+      }
+    };
+
+    if (addedFoods.length > 0) {
+      storeFoods();
+    }
+  }, [addedFoods]);
+
+  const handleSearch = async () => {
+    Keyboard.dismiss();
+    setLoading(true);
+    try {
+      const result = await searchFoods(searchQuery);
+      setFoodData(result);
+      setSuggestions([]);
+      setSelectedFood(result[0]);
+    } catch (error) {
+      console.error('Error fetching food data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAutocomplete = async (query) => {
+    setSearchQuery(query);
+    if (query.length > 1) {
+      try {
+        const result = await getAutocompleteSuggestions(query);
+        setSuggestions(result.slice(0, 3));
+      } catch (error) {
+        console.error('Error fetching autocomplete suggestions:', error);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionPress = async (suggestion) => {
+    Keyboard.dismiss();
+    setLoading(true);
+    try {
+      const result = await searchFoods(suggestion);
+      setFoodData(result);
+      setSuggestions([]);
+      setSearchQuery(suggestion);
+      setSelectedFood(result[0]);
+    } catch (error) {
+      console.error('Error fetching food data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFoodPress = (food) => {
+    Keyboard.dismiss();
+    setSelectedFood(food);
+  };
 
   const handleOnPress = () => {
     navigation.navigate('Calorie');
   };
 
-  const handleVitaminPress = () => {
-    navigation.navigate('Food');
+  const handleAddFood = (food, grams) => {
+    const roundToTwoDecimals = (value) => Math.round(value * 100) / 100;
+    const updatedFood = {
+      ...food,
+      grams,
+      nutrients: {
+        CA: food.food.nutrients.CA,
+        CHOCDF: roundToTwoDecimals((food.food.nutrients.CHOCDF * grams) / 100),
+        CHOCDF_net: food.food.nutrients['CHOCDF.net'],
+        CHOLE: food.food.nutrients.CHOLE,
+        ENERC_KCAL: roundToTwoDecimals((food.food.nutrients.ENERC_KCAL * grams) / 100),
+        FAMS: food.food.nutrients.FAMS,
+        FAPU: food.food.nutrients.FAPU,
+        FASAT: food.food.nutrients.FASAT,
+        FATRN: food.food.nutrients.FATRN,
+        FIBTG: food.food.nutrients.FIBTG,
+        FOLDFE: food.food.nutrients.FOLDFE,
+        FOLFD: food.food.nutrients.FOLFD,
+        FOLAC: food.food.nutrients.FOLAC,
+        FE: food.food.nutrients.FE,
+        MG: food.food.nutrients.MG,
+        NIA: food.food.nutrients.NIA,
+        P: food.food.nutrients.P,
+        K: food.food.nutrients.K,
+        PROCNT: roundToTwoDecimals((food.food.nutrients.PROCNT * grams) / 100),
+        RIBF: food.food.nutrients.RIBF,
+        NA: food.food.nutrients.NA,
+        SUGAR: food.food.nutrients.SUGAR,
+        THIA: food.food.nutrients.THIA,
+        FAT: roundToTwoDecimals((food.food.nutrients.FAT * grams) / 100),
+        VITA_RAE: food.food.nutrients.VITA_RAE,
+        VITB12: food.food.nutrients.VITB12,
+        VITB6A: food.food.nutrients.VITB6A,
+        VITC: food.food.nutrients.VITC,
+        VITD: food.food.nutrients.VITD,
+        VITK1: food.food.nutrients.VITK1,
+        ZN: food.food.nutrients.ZN,
+      },
+    };
+
+    setAddedFoods((prevFoods) => [...prevFoods, updatedFood]);
+    setSelectedFood(null);
+    setSearchQuery('');
   };
+
+  const handleDeleteFood = (index) => {
+    setAddedFoods((prevFoods) => prevFoods.filter((_, i) => i !== index));
+  };
+
+  const calculateTotalNutrients = (nutrient) => {
+    return addedFoods.reduce((acc, food) => acc + (food.nutrients[nutrient] || 0), 0);
+  };
+
+  const nutrients = {
+    totalCalories: calculateTotalNutrients('ENERC_KCAL'),
+    totalProtein: calculateTotalNutrients('PROCNT'),
+    totalCarbs: calculateTotalNutrients('CHOCDF'),
+    totalFat: calculateTotalNutrients('FAT'),
+    calcium: calculateTotalNutrients('CA'),
+    cholesterol: calculateTotalNutrients('CHOLE'),
+    fiber: calculateTotalNutrients('FIBTG'),
+    iron: calculateTotalNutrients('FE'),
+    magnesium: calculateTotalNutrients('MG'),
+    potassium: calculateTotalNutrients('K'),
+    sodium: calculateTotalNutrients('NA'),
+    sugar: calculateTotalNutrients('SUGAR'),
+    vitaminA: calculateTotalNutrients('VITA_RAE'),
+    vitaminB12: calculateTotalNutrients('VITB12'),
+    vitaminB6: calculateTotalNutrients('VITB6A'),
+    vitaminC: calculateTotalNutrients('VITC'),
+    vitaminD: calculateTotalNutrients('VITD'),
+    vitaminK: calculateTotalNutrients('VITK1'),
+    zinc: calculateTotalNutrients('ZN'),
+    monounsaturatedFat: calculateTotalNutrients('FAMS'),
+    polyunsaturatedFat: calculateTotalNutrients('FAPU'),
+    saturatedFat: calculateTotalNutrients('FASAT'),
+    transFat: calculateTotalNutrients('FATRN'),
+    folateDFE: calculateTotalNutrients('FOLDFE'),
+    folateFood: calculateTotalNutrients('FOLFD'),
+    folicAcid: calculateTotalNutrients('FOLAC'),
+    niacin: calculateTotalNutrients('NIA'),
+    phosphorus: calculateTotalNutrients('P'),
+    riboflavin: calculateTotalNutrients('RIBF'),
+    thiamin: calculateTotalNutrients('THIA'),
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.topContainer}>
-        {mealImage && <Image source={mealImage} style={styles.image} />}
-      </View>
-      <ScrollView style={styles.bottomContainer}>
-        <View style={styles.headerContainer}>
-        <Text style={styles.title}>{mealType}</Text>
-        <CustomButton
-          text='+'
-          type='PRIMARY'
-          style={styles.addButtonStyle}
-        />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          {mealImage && <Image source={mealImage} style={styles.image} />}
+          <Text style={styles.title}>{mealType}</Text>
         </View>
-        <FoodComponent
-        />
-        <DashboardComponent
-        />
-        <MicronutrientsOverviewComponent navigation={navigation}
-          onPress={handleVitaminPress}
-        />
-        <CustomButton
-          text='Go Back'
-          type='PRIMARY'
-          onPress={handleOnPress}
-          style={styles.buttonStyle}
-        />
-      </ScrollView>
-    </View>
+        <View style={styles.bottomContainer}>
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search for foods..."
+              placeholderTextColor="#203C3B"
+              value={searchQuery}
+              onChangeText={handleAutocomplete}
+              onSubmitEditing={handleSearch}
+            />
+          </View>
+          {suggestions.length > 0 && (
+            <View style={styles.suggestionsList}>
+              {suggestions.map((item, index) => (
+                <TouchableOpacity key={index.toString()} onPress={() => handleSuggestionPress(item)}>
+                  <Text style={styles.suggestionItem}>{item}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+          <ScrollView>
+            {loading ? (
+              <ActivityIndicator size="large" color="#203C3B" />
+            ) : selectedFood ? (
+              <FoodDetailComponent food={selectedFood} onAddFood={handleAddFood} />
+            ) : (
+              foodData.map((food, index) => (
+                <TouchableOpacity key={index} onPress={() => handleFoodPress(food)}>
+                  <FoodComponent name={food.food.label} kcals={food.food.nutrients.ENERC_KCAL} />
+                </TouchableOpacity>
+              ))
+            )}
+            {addedFoods.map((food, index) => (
+              <FoodComponent
+                key={index}
+                name={food.food.label}
+                kcals={food.nutrients.ENERC_KCAL}
+                proteinIntake={food.nutrients.PROCNT}
+                carbIntake={food.nutrients.CHOCDF}
+                fatIntake={food.nutrients.FAT}
+                grams={food.grams}
+                onDelete={() => handleDeleteFood(index)}
+              />
+            ))}
+            <View style={styles.infoContainer}>
+              <DashboardComponent 
+                totalCalories={nutrients.totalCalories}
+                totalProtein={nutrients.totalProtein}
+                totalCarbs={nutrients.totalCarbs}
+                totalFat={nutrients.totalFat}
+              />
+              <MicronutrientsOverviewComponent navigation={navigation}  />
+            </View>
+            <CustomButton text='Go Back' type='PRIMARY' onPress={handleOnPress} style={styles.buttonStyle} />
+          </ScrollView>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -76,12 +298,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignContent: 'center',
-  },
-  headerContainer :{
-    flexDirection: 'row',
-    justifyContent:'space-around',
-    marginHorizontal: -40,
-    backgroundColor: '#FFFFFF',
   },
   topContainer: {
     flex: 0.8,
@@ -100,25 +316,51 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'left',
+    marginTop: 320,
+    marginLeft: 10,
+    alignSelf: 'flex-start',
     textTransform: 'capitalize',
-    marginTop: 17,
-    color: '#203C3B',
-    marginRight: 120,
+    position: 'absolute',
+    color: 'white',
+  },
+  infoContainer: {
+    top: -40,
   },
   buttonStyle: {
     width: '60%',
     textAlign: 'center',
     alignSelf: 'center',
-    bottom: 10,
+    bottom: 25,
   },
-  addButtonStyle: {
-    width: 45,
-    height: 45,
-    textAlign: 'right',
-    alignSelf: 'flex-end',
-    borderRadius: 50,
-    textAlign: 'center',
-  }
+  searchContainer: {
+    height: 40,
+    margin: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#203C3B',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    justifyContent: 'center',
+  },
+  searchInput: {
+    height: '100%',
+    paddingHorizontal: 10,
+    color: '#203C3B',
+  },
+  suggestionsList: {
+    maxHeight: 150,
+    borderColor: '#203C3B',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    marginBottom: 10,
+  },
+  suggestionItem: {
+    padding: 10,
+    borderBottomColor: '#203C3B',
+    borderBottomWidth: 1,
+  },
 });
 
 export default FoodScreen;

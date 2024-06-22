@@ -10,24 +10,24 @@ const DashboardComponent = ({ totalCalories, totalProtein, totalCarbs, totalFat 
 
   const ProgressBar = ({ value, maxValue }) => {
     const progress = (value / maxValue) * 100;
+    const displayProgress = progress > 100 ? 100 : progress;
     return (
       <View style={styles.progressBarWrapper}>
         <View style={styles.progressBarContainer}>
-          <View style={[styles.progressBar, { width: `${progress}%` }]} />
+          <View style={[styles.progressBar, { width: `${displayProgress}%` }]} />
         </View>
-        <Text style={styles.progressPercentage}></Text>
       </View>
     );
   };
 
   const ProgressBarCalorie = ({ value, maxValue }) => {
     const progress = (value / maxValue) * 100;
+    const displayProgress = progress > 100 ? 100 : progress;
     return (
       <View style={styles.progressBarWrapper}>
         <View style={styles.progressBarCalorieContainer}>
-          <View style={[styles.progressBarCalorie, { width: `${progress}%` }]} />
+          <View style={[styles.progressBarCalorie, { width: `${displayProgress}%` }]} />
         </View>
-        <Text style={styles.progressPercentage}></Text>
       </View>
     );
   };
@@ -105,13 +105,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 2,
   },
-  calorieText:{
+  calorieText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#203C3B',
     textAlign: 'center',
   },
-  calorieValue:{
+  calorieValue: {
     fontSize: 16,
     fontWeight: '400',
     color: '#203C3B',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   progressBarCalorieContainer: {
     width: '100%',
-    height: 12, 
+    height: 12,
     borderRadius: 10,
     backgroundColor: '#efe5e5',
     marginVertical: 5,
@@ -155,11 +155,6 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#203C3B',
     borderRadius: 10,
-  },
-  progressPercentage: {
-    marginLeft: 10,
-    fontSize: 14,
-    color: '#203C3B',
   },
 });
 

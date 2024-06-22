@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../../components/customButton/customButton';
 import FoodComponent from '../../components/FoodComponent/FoodComponent';
 import DashboardComponent from '../../components/DashboardComponent/DashboardComponent';
-import MicroDashboardComponent from '../../components/MicroDashboardComponent/MicroDashboardComponent';
 import FoodDetailComponent from '../../components/FoodDetailComponent/FoodDetailComponent';
 import { searchFoods, getAutocompleteSuggestions } from '../../services/apiFoodServices';
 import Breakfast from '../../assets/images/breakfast.jpg';
@@ -30,7 +29,7 @@ const getMealImage = (mealType) => {
 };
 
 const FoodScreen = ({ route }) => {
-  const { mealType, currentKcals, totalKcals } = route.params;
+  const { mealType } = route.params;
   const mealImage = getMealImage(mealType);
   const [foodData, setFoodData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,7 +53,7 @@ const FoodScreen = ({ route }) => {
 
     const loadStoredFoods = async () => {
       try {
-        const storedFoods = await AsyncStorage.getItem('addedFoods');
+        const storedFoods = await AsyncStorage.getItem(`${mealType}_addedFoods`);
         if (storedFoods !== null) {
           setAddedFoods(JSON.parse(storedFoods));
         }
@@ -68,9 +67,13 @@ const FoodScreen = ({ route }) => {
   }, [mealType]);
 
   useEffect(() => {
+    handleSearch();
+  }, []);
+
+  useEffect(() => {
     const storeFoods = async () => {
       try {
-        await AsyncStorage.setItem('addedFoods', JSON.stringify(addedFoods));
+        await AsyncStorage.setItem(`${mealType}_addedFoods`, JSON.stringify(addedFoods));
       } catch (error) {
         console.error('Error storing foods:', error);
       }
@@ -79,7 +82,7 @@ const FoodScreen = ({ route }) => {
     if (addedFoods.length > 0) {
       storeFoods();
     }
-  }, [addedFoods]);
+  }, [addedFoods, mealType]);
 
   const handleSearch = async () => {
     Keyboard.dismiss();
@@ -97,17 +100,17 @@ const FoodScreen = ({ route }) => {
   };
 
   const triggerSearch = async () => {
-    setSearchQuery('');  // Resetează câmpul de căutare
-    setLoading(true);    // Arată indicatorul de încărcare
+    setSearchQuery('');
+    setLoading(true);
 
     try {
-      const result = await searchFoods('');  // Fă o căutare cu un query gol sau cu un query implicit
+      const result = await searchFoods('');
       setFoodData(result);
       setSuggestions([]);
     } catch (error) {
       console.error('Error fetching food data:', error);
     } finally {
-      setLoading(false);  // Oprește indicatorul de încărcare
+      setLoading(false);
     }
   };
 
@@ -191,9 +194,9 @@ const FoodScreen = ({ route }) => {
     };
 
     setAddedFoods((prevFoods) => [...prevFoods, updatedFood]);
-    setSelectedFood(null);  // Ascunde detaliile alimentului după adăugare
+    setSelectedFood(null);
     setSearchQuery('');
-    await triggerSearch();  // Declanșează căutarea automată
+    await triggerSearch();
   };
 
   const handleDeleteFood = (index) => {
@@ -217,8 +220,11 @@ const FoodScreen = ({ route }) => {
     return totals;
   };
   
-  const totalVitamins = calculateTotalNutrientsByCategory(vitaminNutrients) || {};
-  const totalMinerals = calculateTotalNutrientsByCategory(mineralNutrients) || {};
+  const totalVitamins = calculateTotalNutrientsByCategory(vitaminNutrients);
+  const totalMinerals = calculateTotalNutrientsByCategory(mineralNutrients);
+
+  const totalVitaminsSum = Object.values(totalVitamins).reduce((a, b) => a + b, 0);
+  const totalMineralsSum = Object.values(totalMinerals).reduce((a, b) => a + b, 0);
 
   return (
     <KeyboardAvoidingView
@@ -283,8 +289,8 @@ const FoodScreen = ({ route }) => {
               />
               <MicronutrientsOverviewComponent 
                 navigation={navigation} 
-                totalVitamins={totalVitamins} 
-                totalMinerals={totalMinerals}
+                totalVitamins={totalVitaminsSum} 
+                totalMinerals={totalMineralsSum}
               />
             </View>
             <CustomButton text='Go Back' type='PRIMARY' onPress={handleOnPress} style={styles.buttonStyle} />

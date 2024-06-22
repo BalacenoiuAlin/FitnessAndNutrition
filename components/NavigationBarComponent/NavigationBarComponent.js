@@ -13,7 +13,6 @@ import ExerciseInfoScreen from '../../screens/ExerciseInfoScreen';
 import InDepthExerciseScreen from '../../screens/InDepthExerciseScreen';
 import MicronutrientsScreen from '../../screens/MicronutrientsScreen';
 import FoodScreen from '../../screens/FoodScreen';
-import FindItemScreen from '../../screens/FindItemScreen';
 
 const Tab = createBottomTabNavigator();
 const EducativeStack = createStackNavigator();
@@ -36,11 +35,6 @@ const CalorieStackNavigator = () => {
       <CalorieStack.Screen
         name="Food"
         component={FoodScreen}
-        options={{ headerShown: false }}
-      />
-      <CalorieStack.Screen
-        name="FindItem"
-        component={FindItemScreen}
         options={{ headerShown: false }}
       />
     </CalorieStack.Navigator>

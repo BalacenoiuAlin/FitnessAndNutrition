@@ -68,7 +68,7 @@ const CalorieScreen = ({ navigation }) => {
           style={styles.iconContainer}
           onPress={() => navigation.navigate('Chatbot')}
         >
-          <MaterialCommunityIcons name="robot" size={50} color="203C3B" />
+          <MaterialCommunityIcons name="robot" size={50} color="#203C3B" />
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { FOOD_API_KEY, FOOD_ID_KEY, NUTRITION_API_KEY, NUTRITION_ID_KEY } from '@env';
+import { FOOD_API_KEY, FOOD_ID_KEY, NUTRITION_API_KEY, NUTRITION_ID_KEY, RECIPE_API_KEY, RECIPE_ID_KEY } from '@env';
 
-if (!FOOD_API_KEY || !FOOD_ID_KEY || !NUTRITION_API_KEY || !NUTRITION_ID_KEY) {
+if (!FOOD_API_KEY || !FOOD_ID_KEY || !NUTRITION_API_KEY || !NUTRITION_ID_KEY || !RECIPE_API_KEY || !RECIPE_ID_KEY) {
   throw new Error('API keys are missing. Please check your environment variables.');
 }
 
@@ -21,6 +21,15 @@ const nutritionClient = axios.create({
   },
 });
 
+const recipeClient = axios.create({
+  baseURL: 'https://api.edamam.com/api/recipes/v2',
+  params: {
+    type: 'public',
+    app_id: RECIPE_ID_KEY,
+    app_key: RECIPE_API_KEY,
+  },
+});
+
 export const searchFoods = async (query, type = 'keyword') => {
   try {
     const params = {
@@ -28,8 +37,6 @@ export const searchFoods = async (query, type = 'keyword') => {
       upc: type === 'barcode' ? query : undefined,
       'nutrition-type': 'logging',
     };
-
-    console.log('Query Params:', params);
 
     const response = await parserClient.get('', { params });
 
@@ -80,27 +87,36 @@ export const searchFoods = async (query, type = 'keyword') => {
   }
 };
 
-export const getAutocompleteSuggestions = async (query) => {
+export const searchRecipes = async (query) => {
   try {
-    const response = await autocompleteClient.get('', {
-      params: {
-        q: query,
-      },
-    });
+    const params = {
+      q: query,
+      type: 'public',
+    };
 
-    return response.data;
+    const response = await recipeClient.get('', { params });
+
+    if (!response.data || !response.data.hits) {
+      throw new Error('Invalid response structure');
+    }
+
+    return response.data.hits.map((hit) => ({
+      label: hit.recipe.label,
+      image: hit.recipe.image,
+      source: hit.recipe.source,
+      url: hit.recipe.url,
+      calories: hit.recipe.calories,
+      ingredientLines: hit.recipe.ingredientLines,
+    }));
   } catch (error) {
-    console.error('Error fetching autocomplete suggestions:', error);
+    console.error('Error fetching recipes:', error);
     throw error;
   }
 };
 
 export const queryChatbot = async (query) => {
   try {
-    const params = {
-      ingr: query,
-    };
-
+    const params = { ingr: query };
     const response = await nutritionClient.get('', { params });
 
     if (!response.data) {
@@ -118,6 +134,21 @@ export const queryChatbot = async (query) => {
     };
   } catch (error) {
     console.error('Error querying the chatbot:', error);
+    throw error;
+  }
+};
+
+export const getAutocompleteSuggestions = async (query) => {
+  try {
+    const response = await autocompleteClient.get('', {
+      params: {
+        q: query,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching autocomplete suggestions:', error);
     throw error;
   }
 };

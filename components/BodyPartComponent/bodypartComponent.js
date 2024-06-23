@@ -12,6 +12,7 @@ import Neck from '../../assets/images/neck.webp';
 import Cardio from '../../assets/images/cardio.webp';
 import Waist from '../../assets/images/waist.webp'
 import CustomButton from '../customButton/customButton';
+import { fetchBodyPartList } from '../../services/apiExerciseServices';
 
 const BodyPartComponent = () => {
   const [bodyParts, setBodyParts] = useState([]);
@@ -33,22 +34,18 @@ const BodyPartComponent = () => {
   };
 
   useEffect(() => {
-    fetch('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', {
-      method: 'GET',
-      headers: {
-        //'x-rapidapi-key': '394b133098mshc80e29dadfe2e78p1df839jsn843be704bee8',
-        'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchBodyPartList();
         setBodyParts(data);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         setError(error);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleOnPress = () => {

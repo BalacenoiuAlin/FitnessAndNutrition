@@ -426,6 +426,7 @@ const styles = StyleSheet.create({
   searchInput: {
     height: '100%',
     paddingHorizontal: 10,
+    bottom: -15,
     color: '#203C3B',
   },
   suggestionsList: {
@@ -443,9 +444,13 @@ const styles = StyleSheet.create({
   },
   barcodeScannerText: {
     color: '#203C3B',
+    width: 100,
     fontSize: 16,
     textAlign: 'center',
     marginTop: 10,
+    position: 'relative',
+    top: -25,
+    right: -280,
   },
   modalContainer: {
     flex: 1,

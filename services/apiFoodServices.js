@@ -21,6 +21,14 @@ const nutritionClient = axios.create({
   },
 });
 
+const autocompleteClient = axios.create({
+  baseURL: 'https://api.edamam.com/auto-complete',
+  params: {
+    app_id: FOOD_ID_KEY,
+    app_key: FOOD_API_KEY,
+  },
+});
+
 const recipeClient = axios.create({
   baseURL: 'https://api.edamam.com/api/recipes/v2',
   params: {

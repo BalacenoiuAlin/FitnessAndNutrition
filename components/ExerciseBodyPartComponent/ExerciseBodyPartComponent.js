@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import CustomButton from '../customButton/customButton';
+import { fetchExercisesByBodyPart } from '../../services/apiExerciseServices';
 
 const ExerciseBodyPartComponent = () => {
   const [exercises, setExercises] = useState([]);
@@ -12,40 +13,19 @@ const ExerciseBodyPartComponent = () => {
   const { bodyPart } = route.params;
 
   useEffect(() => {
-    fetchExercises();
+    const fetchData = async () => {
+      try {
+        const data = await fetchExercisesByBodyPart(bodyPart);
+        setExercises(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [bodyPart]);
-
-  const fetchExercises = async () => {
-    try {
-      const response = await fetch(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, {
-        method: 'GET',
-        headers: {
-          //'x-rapidapi-key': '394b133098mshc80e29dadfe2e78p1df839jsn843be704bee8',
-          'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
-        }
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('Unauthorized: Invalid API key');
-        } else {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-      }
-
-      const data = await response.json();
-      if (!data) {
-        throw new Error('No data returned from API');
-      }
-
-      const filteredData = data.map(({ id, bodyPart, name, target, gifUrl }) => ({ id, bodyPart, name, target, gifUrl }));
-      setExercises(filteredData);
-      setLoading(false);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-  };
 
   const handleContainerPress = (item) => {
     navigation.navigate('InDepthExercise', { exercise: item });

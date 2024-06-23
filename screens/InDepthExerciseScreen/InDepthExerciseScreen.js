@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import CustomButton from '../../components/customButton';
 import { useNavigation } from '@react-navigation/native';
+import { fetchExerciseDetails } from '../../services/apiExerciseServices';
 
 const InDepthExerciseScreen = ({ route }) => {
     const { exercise } = route.params;
@@ -11,22 +12,18 @@ const InDepthExerciseScreen = ({ route }) => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        fetch(`https://exercisedb.p.rapidapi.com/exercises/exercise/${exercise.id}`, {
-            method: 'GET',
-            headers: {
-                //'x-rapidapi-key': '394b133098mshc80e29dadfe2e78p1df839jsn843be704bee8',
-                'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchExerciseDetails(exercise.id);
                 setDetailedExercise(data);
                 setLoading(false);
-            })
-            .catch(error => {
+            } catch (error) {
                 setError(error);
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchData();
     }, [exercise.id]);
 
     if (loading) {
@@ -50,29 +47,31 @@ const InDepthExerciseScreen = ({ route }) => {
       };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.upperContainer}>
-                <Text style={styles.title}>{detailedExercise.name}</Text>
-                <Image source={{ uri: detailedExercise.gifUrl }} style={styles.image} />
-                <View style={styles.rowContainer}>
-                    <Text style={styles.detail}>Body Part: {detailedExercise.bodyPart}</Text>
-                    <Text style={styles.detail}>Target: {detailedExercise.target}</Text>
-                    <Text style={styles.detail}>Equipment: {detailedExercise.equipment}</Text>
+        detailedExercise && (
+            <View style={styles.container}>
+                <View style={styles.upperContainer}>
+                    <Text style={styles.title}>{detailedExercise.name}</Text>
+                    <Image source={{ uri: detailedExercise.gifUrl }} style={styles.image} />
+                    <View style={styles.rowContainer}>
+                        <Text style={styles.detail}>Body Part: {detailedExercise.bodyPart}</Text>
+                        <Text style={styles.detail}>Target: {detailedExercise.target}</Text>
+                        <Text style={styles.detail}>Equipment: {detailedExercise.equipment}</Text>
+                    </View>
                 </View>
-            </View>
                 <Text style={styles.instructionsTitle}>Instructions:</Text>
                 <View style={styles.bottomContainer}>
-                {detailedExercise.instructions.map((instruction, index) => (
-                    <Text key={index} style={styles.instruction}>{instruction}</Text>
-                ))}
+                    {detailedExercise.instructions && detailedExercise.instructions.map((instruction, index) => (
+                        <Text key={index} style={styles.instruction}>{instruction}</Text>
+                    ))}
+                </View>
+                <CustomButton 
+                    text='Go back'
+                    type='Primary'
+                    onPress={handleOnPress}
+                    style={styles.buttonStyle}
+                />
             </View>
-            <CustomButton 
-            text='Go back'
-            type='Primary'
-            onPress={handleOnPress}
-            style={styles.buttonStyle}
-            />
-        </View >
+        )
     );
 };
 
@@ -85,6 +84,8 @@ const styles = StyleSheet.create({
     },
     loadingContainer: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     rowContainer: {
         justifyContent: 'flex-start',
@@ -94,7 +95,6 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         width: '91%',
         height: '7%',
-
     },
     errorContainer: {
         flex: 1,
@@ -138,11 +138,10 @@ const styles = StyleSheet.create({
     detail: {
         fontSize: 12,
         textTransform: 'uppercase',
-        color: '#FFFFFF',
+        color: '#203C3B',
         fontWeight: '500',
         marginHorizontal: 5,
         marginLeft: 15,
-        color: '#203C3B',
     },
     image: {
         width: '90%',
@@ -162,10 +161,9 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         marginHorizontal: 3,
         marginVertical: 2,
-        color:'#203C3B',
-
+        color: '#203C3B',
     },
-    buttonStyle:{
+    buttonStyle: {
         width: '60%',
         alignItems: 'center',
         marginBottom: 20,

@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import DashboardComponent from '../../components/DashboardComponent/DashboardComponent';
 import MicronutrientsOverviewComponent from '../../components/MicronutrientsOverviewComponent/MicronutrientsOverviewComponent';
 import FoodDashboardComponent from '../../components/FoodDashboardComponent/FoodDashboardComponent';
 import WaterIntakeComponent from '../../components/WaterIntakeComponent/WaterIntakeComponent';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CalorieScreen = ({ navigation }) => {
   const [currentKcals, setCurrentKcals] = useState({
@@ -61,7 +62,15 @@ const CalorieScreen = ({ navigation }) => {
         currentKcals={currentKcals.snacks}
         onPress={() => navigation.navigate('FoodScreen', { mealType: 'snacks' })}
       />
-      <WaterIntakeComponent />
+      <View style={styles.rowContainer}>
+        <WaterIntakeComponent />
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => navigation.navigate('Chatbot')}
+        >
+          <MaterialCommunityIcons name="robot" size={50} color="203C3B" />
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -72,6 +81,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     paddingVertical: 20,
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  iconContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    padding: 15,
+    marginVertical: 10,
+    shadowColor: '#203C3B',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    width: 80,
+    height: 110,
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginLeft: 10,
   },
 });
 

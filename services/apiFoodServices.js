@@ -6,17 +6,9 @@ if (!FOOD_API_KEY || !FOOD_ID_KEY) {
   throw new Error('API keys are missing. Please check your environment variables.');
 }
 
-// Create clients for each endpoint
+// Create the client for the food database and chatbot endpoints
 const parserClient = axios.create({
   baseURL: 'https://api.edamam.com/api/food-database/v2/parser',
-  params: {
-    app_id: FOOD_ID_KEY,
-    app_key: FOOD_API_KEY,
-  },
-});
-
-const autocompleteClient = axios.create({
-  baseURL: 'https://api.edamam.com/auto-complete',
   params: {
     app_id: FOOD_ID_KEY,
     app_key: FOOD_API_KEY,
@@ -73,6 +65,8 @@ export const searchFoods = async (query, type = 'keyword') => {
         VITK1: item.food.nutrients.VITK1,
         ZN: item.food.nutrients.ZN,
       },
+      ingredients: item.food.foodContentsLabel, // Include the ingredients
+      image: item.food.image, // Include the image URL
     }));
   } catch (error) {
     console.error('Error fetching food data:', error);
@@ -91,6 +85,35 @@ export const getAutocompleteSuggestions = async (query) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching autocomplete suggestions:', error);
+    throw error;
+  }
+};
+
+export const queryChatbot = async (query) => {
+  try {
+    const params = {
+      ingr: query,
+    };
+
+    const response = await parserClient.get('', { params });
+
+    if (!response.data) {
+      throw new Error('Invalid response structure');
+    }
+
+    const parsedData = response.data.parsed.map((item) => ({
+      text: query,
+      food: {
+        label: item.food.label,
+        nutrients: item.food.nutrients,
+        ingredients: item.food.foodContentsLabel,
+        image: item.food.image,
+      }
+    }));
+
+    return parsedData;
+  } catch (error) {
+    console.error('Error querying the chatbot:', error);
     throw error;
   }
 };

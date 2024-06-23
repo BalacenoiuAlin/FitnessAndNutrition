@@ -5,6 +5,7 @@ import { queryChatbot } from '../../services/apiFoodServices';
 const ChatbotScreen = ({ navigation }) => {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState(null);
+  const [detailedResponse, setDetailedResponse] = useState(null);
 
   const handleQuerySubmit = async () => {
     Keyboard.dismiss();
@@ -17,6 +18,15 @@ const ChatbotScreen = ({ navigation }) => {
     }
   };
 
+  const handleItemPress = async (item) => {
+    try {
+      const result = await queryChatbot(item.text);
+      setDetailedResponse(result);
+    } catch (error) {
+      console.error('Error fetching detailed food data:', error);
+    }
+  };
+
   const renderResponse = () => {
     if (!response) {
       return null;
@@ -26,22 +36,38 @@ const ChatbotScreen = ({ navigation }) => {
       return <Text style={styles.errorText}>{response.error}</Text>;
     }
 
-    return response.map((item, index) => (
-      <View key={index} style={styles.itemContainer}>
-        <Text style={styles.label}>{item.food.label} => calories: {item.food.nutrients.ENERC_KCAL}</Text>
-        {item.food.nutrients && (
-          <>
-            <Text>Calories: {item.food.nutrients.ENERC_KCAL}</Text>
-            <Text>Protein: {item.food.nutrients.PROCNT}g</Text>
-            <Text>Fat: {item.food.nutrients.FAT}g</Text>
-            <Text>Carbohydrates: {item.food.nutrients.CHOCDF}g</Text>
-            <Text>Fiber: {item.food.nutrients.FIBTG}g</Text>
-          </>
-        )}
-        {item.food.ingredients && <Text>Ingredients: {item.food.ingredients}</Text>}
-        {item.food.image && <Image source={{ uri: item.food.image }} style={styles.image} />}
+    return (
+      <View>
+        <TouchableOpacity onPress={() => handleItemPress(response)}>
+          <View style={styles.itemContainer}>
+            <Text style={styles.label}>Nutritional Information</Text>
+            <Text>Calories: {response.food.calories}</Text>
+            {response.food.nutrients && Object.keys(response.food.nutrients).map((key) => (
+              <Text key={key}>{key}: {response.food.nutrients[key].quantity} {response.food.nutrients[key].unit}</Text>
+            ))}
+            {response.food.dietLabels && <Text>Diet Labels: {response.food.dietLabels.join(', ')}</Text>}
+            {response.food.healthLabels && <Text>Health Labels: {response.food.healthLabels.join(', ')}</Text>}
+          </View>
+        </TouchableOpacity>
       </View>
-    ));
+    );
+  };
+
+  const renderDetailedResponse = () => {
+    if (!detailedResponse) {
+      return null;
+    }
+
+    return (
+      <View style={styles.itemContainer}>
+        <Text style={styles.label}>{detailedResponse.food.label}</Text>
+        {detailedResponse.food.nutrients && Object.keys(detailedResponse.food.nutrients).map((key) => (
+          <Text key={key}>{key}: {detailedResponse.food.nutrients[key].quantity} {detailedResponse.food.nutrients[key].unit}</Text>
+        ))}
+        {detailedResponse.food.ingredients && <Text>Ingredients: {detailedResponse.food.ingredients}</Text>}
+        {detailedResponse.food.image && <Image source={{ uri: detailedResponse.food.image }} style={styles.image} />}
+      </View>
+    );
   };
 
   return (
@@ -52,6 +78,7 @@ const ChatbotScreen = ({ navigation }) => {
     >
       <ScrollView style={styles.responseContainer}>
         {renderResponse()}
+        {renderDetailedResponse()}
       </ScrollView>
       <View style={styles.inputContainer}>
         <TextInput
@@ -84,30 +111,21 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '111%',
+    width: '100%',
     justifyContent: 'space-between',
     backgroundColor: '#203C3B',
-    left: -20,
-    height: 80,
+    padding: 10,
     borderTopLeftRadius: 10,
-    borderTopRightRadius: 13,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 13,
-    bottom: -10,
+    borderTopRightRadius: 10,
   },
   input: {
     flex: 1,
     borderWidth: 1,
     borderColor: '#FFFFFF',
     backgroundColor: '#FFFFFF',
-    marginLeft: 10,
-    shadowColor: '#203C3B',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    borderRadius: 5,
     padding: 10,
     marginRight: 10,
+    borderRadius: 5,
   },
   button: {
     backgroundColor: '#FFFFFF',
@@ -116,7 +134,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
   },
   buttonText: {
     color: '#203C3B',
@@ -124,6 +141,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   itemContainer: {
+    marginTop: 20,
     marginBottom: 20,
   },
   label: {

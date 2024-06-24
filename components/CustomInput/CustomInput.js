@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginVertical: 15,
         justifyContent: 'center',
+        alignContent: 'center',
     },
     input: {
         height: '100%',

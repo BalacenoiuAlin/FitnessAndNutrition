@@ -1,0 +1,166 @@
+Date : 2024-06-23 08:18:28
+Directory : c:\Users\alinb\FitnessAndNutrition
+Total : 93 files,  20081 codes, 2 comments, 485 blanks, all 20568 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          3 |     15,259 |          0 |          3 |     15,262 |
+| JavaScript         |         88 |      4,800 |          2 |        478 |      5,280 |
+| TypeScript JSX     |          1 |         11 |          0 |          3 |         14 |
+| JSON with Comments |          1 |         11 |          0 |          1 |         12 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                |         93 |     20,081 |          2 |        485 |     20,568 |
+| . (Files)                                                                                                        |          6 |     15,298 |          0 |          9 |     15,307 |
+| components                                                                                                       |         40 |      1,883 |          1 |        156 |      2,040 |
+| components\BarcodeScannerComponent                                                                               |          2 |         78 |          0 |          7 |         85 |
+| components\BodyPartComponent                                                                                     |          2 |        170 |          0 |         13 |        183 |
+| components\CustomInput                                                                                           |          2 |         38 |          0 |          7 |         45 |
+| components\DashboardComponent                                                                                    |          2 |        153 |          1 |          9 |        163 |
+| components\DatePickerComponent                                                                                   |          2 |         50 |          0 |          7 |         57 |
+| components\ExerciseBodyPartComponent                                                                             |          2 |        207 |          0 |         14 |        221 |
+| components\FoodComponent                                                                                         |          2 |        146 |          0 |          7 |        153 |
+| components\FoodDashboardComponent                                                                                |          2 |        100 |          0 |          9 |        109 |
+| components\FoodDetailComponent                                                                                   |          2 |        143 |          0 |          9 |        152 |
+| components\GenderButton                                                                                          |          2 |         44 |          0 |          5 |         49 |
+| components\HeightSelectorComponent                                                                               |          2 |         49 |          0 |          6 |         55 |
+| components\InformativeComponent                                                                                  |          2 |         84 |          0 |          6 |         90 |
+| components\KnowledgeComponent                                                                                    |          2 |        116 |          0 |          7 |        123 |
+| components\MicroDashboardComponent                                                                               |          2 |        108 |          0 |          6 |        114 |
+| components\MicronutrientsOverviewComponent                                                                       |          2 |         60 |          0 |          5 |         65 |
+| components\NavigationBarComponent                                                                                |          2 |        131 |          0 |          9 |        140 |
+| components\RoundImage                                                                                            |          2 |         26 |          0 |          4 |         30 |
+| components\WaterIntakeComponent                                                                                  |          2 |         93 |          0 |          8 |        101 |
+| components\customButton                                                                                          |          2 |         38 |          0 |         12 |         50 |
+| components\weightSelectorComponent                                                                               |          2 |         49 |          0 |          6 |         55 |
+| contents                                                                                                         |          2 |        204 |          0 |         60 |        264 |
+| screens                                                                                                          |         42 |      2,470 |          0 |        226 |      2,696 |
+| screens\ActivityScreen                                                                                           |          2 |        131 |          0 |         10 |        141 |
+| screens\CalorieScreen                                                                                            |          2 |        101 |          0 |          7 |        108 |
+| screens\ChatbotScreen                                                                                            |          2 |        255 |          0 |         12 |        267 |
+| screens\EducativeScreen                                                                                          |          2 |         20 |          0 |          4 |         24 |
+| screens\ExerciseInfoScreen                                                                                       |          2 |         20 |          0 |          4 |         24 |
+| screens\ExerciseScreen                                                                                           |          2 |         18 |          0 |          4 |         22 |
+| screens\FitnessScreen                                                                                            |          2 |         97 |          0 |          6 |        103 |
+| screens\FoodScreen                                                                                               |          2 |        450 |          0 |         30 |        480 |
+| screens\GoalScreen                                                                                               |          2 |        103 |          0 |          9 |        112 |
+| screens\GoalTimeScreen                                                                                           |          2 |        109 |          0 |         12 |        121 |
+| screens\HeightSelectorScreen                                                                                     |          2 |         97 |          0 |         11 |        108 |
+| screens\InDepthExerciseScreen                                                                                    |          2 |        166 |          0 |          9 |        175 |
+| screens\InformativeScreen                                                                                        |          2 |          7 |          0 |          3 |         10 |
+| screens\MapScreen                                                                                                |          2 |        192 |          0 |          9 |        201 |
+| screens\MicronutrientsScreen                                                                                     |          2 |         46 |          0 |          7 |         53 |
+| screens\ProfileConfigurationScreen                                                                               |          2 |         94 |          0 |         14 |        108 |
+| screens\ProfileCreationScreen                                                                                    |          2 |         95 |          0 |         13 |        108 |
+| screens\ProfileScreen                                                                                            |          2 |        163 |          0 |         17 |        180 |
+| screens\SignInScreen                                                                                             |          2 |        101 |          0 |         18 |        119 |
+| screens\SignUpScreen                                                                                             |          2 |        108 |          0 |         16 |        124 |
+| screens\WeightSelectorScreen                                                                                     |          2 |         97 |          0 |         11 |        108 |
+| services                                                                                                         |          3 |        226 |          1 |         34 |        261 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                         | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\alinb\FitnessAndNutrition\App.tsx                                                                       | TypeScript JSX     |         11 |          0 |          3 |         14 |
+| c:\Users\alinb\FitnessAndNutrition\app.json                                                                      | JSON               |         35 |          0 |          1 |         36 |
+| c:\Users\alinb\FitnessAndNutrition\babel.config.js                                                               | JavaScript         |         17 |          0 |          2 |         19 |
+| c:\Users\alinb\FitnessAndNutrition\components\BarcodeScannerComponent\BarcodeScannerComponent.js                 | JavaScript         |         77 |          0 |          7 |         84 |
+| c:\Users\alinb\FitnessAndNutrition\components\BarcodeScannerComponent\index.js                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\BodyPartComponent\bodypartComponent.js                             | JavaScript         |        169 |          0 |         13 |        182 |
+| c:\Users\alinb\FitnessAndNutrition\components\BodyPartComponent\index.js                                         | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\CustomInput\CustomInput.js                                         | JavaScript         |         37 |          0 |          7 |         44 |
+| c:\Users\alinb\FitnessAndNutrition\components\CustomInput\index.js                                               | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\DashboardComponent\DashboardComponent.js                           | JavaScript         |        152 |          1 |          9 |        162 |
+| c:\Users\alinb\FitnessAndNutrition\components\DashboardComponent\index.js                                        | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\DatePickerComponent\DatePickerComponent.js                         | JavaScript         |         49 |          0 |          7 |         56 |
+| c:\Users\alinb\FitnessAndNutrition\components\DatePickerComponent\index.js                                       | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\ExerciseBodyPartComponent\ExerciseBodyPartComponent.js             | JavaScript         |        206 |          0 |         14 |        220 |
+| c:\Users\alinb\FitnessAndNutrition\components\ExerciseBodyPartComponent\index.js                                 | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\FoodComponent\FoodComponent.js                                     | JavaScript         |        145 |          0 |          7 |        152 |
+| c:\Users\alinb\FitnessAndNutrition\components\FoodComponent\index.js                                             | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\FoodDashboardComponent\FoodDashboardComponent.js                   | JavaScript         |         99 |          0 |          9 |        108 |
+| c:\Users\alinb\FitnessAndNutrition\components\FoodDashboardComponent\index.js                                    | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\FoodDetailComponent\FoodDetailComponent.js                         | JavaScript         |        142 |          0 |          9 |        151 |
+| c:\Users\alinb\FitnessAndNutrition\components\FoodDetailComponent\index.js                                       | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\GenderButton\GenderButton.js                                       | JavaScript         |         43 |          0 |          5 |         48 |
+| c:\Users\alinb\FitnessAndNutrition\components\GenderButton\index.js                                              | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\HeightSelectorComponent\HeightSelectorComponent.js                 | JavaScript         |         48 |          0 |          6 |         54 |
+| c:\Users\alinb\FitnessAndNutrition\components\HeightSelectorComponent\index.js                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\InformativeComponent\InformativeComponent.js                       | JavaScript         |         83 |          0 |          6 |         89 |
+| c:\Users\alinb\FitnessAndNutrition\components\InformativeComponent\index.js                                      | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\KnowledgeComponent\KnowledgeComponent.js                           | JavaScript         |        115 |          0 |          7 |        122 |
+| c:\Users\alinb\FitnessAndNutrition\components\KnowledgeComponent\index.js                                        | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\MicroDashboardComponent\MicroDashboardComponent.js                 | JavaScript         |        107 |          0 |          6 |        113 |
+| c:\Users\alinb\FitnessAndNutrition\components\MicroDashboardComponent\index.js                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\MicronutrientsOverviewComponent\MicronutrientsOverviewComponent.js | JavaScript         |         59 |          0 |          5 |         64 |
+| c:\Users\alinb\FitnessAndNutrition\components\MicronutrientsOverviewComponent\index.js                           | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\NavigationBarComponent\NavigationBarComponent.js                   | JavaScript         |        130 |          0 |          9 |        139 |
+| c:\Users\alinb\FitnessAndNutrition\components\NavigationBarComponent\index.js                                    | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\RoundImage\RoundImage.js                                           | JavaScript         |         25 |          0 |          4 |         29 |
+| c:\Users\alinb\FitnessAndNutrition\components\RoundImage\index.js                                                | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\WaterIntakeComponent\WaterIntakeComponent.js                       | JavaScript         |         92 |          0 |          8 |        100 |
+| c:\Users\alinb\FitnessAndNutrition\components\WaterIntakeComponent\index.js                                      | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\components\customButton\customButton.js                                       | JavaScript         |         37 |          0 |         11 |         48 |
+| c:\Users\alinb\FitnessAndNutrition\components\customButton\index.js                                              | JavaScript         |          1 |          0 |          1 |          2 |
+| c:\Users\alinb\FitnessAndNutrition\components\weightSelectorComponent\WeightSelectorComponent.js                 | JavaScript         |         48 |          0 |          6 |         54 |
+| c:\Users\alinb\FitnessAndNutrition\components\weightSelectorComponent\index.js                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\contents\EducativeContent.js                                                  | JavaScript         |         59 |          0 |          3 |         62 |
+| c:\Users\alinb\FitnessAndNutrition\contents\InformativeContent.js                                                | JavaScript         |        145 |          0 |         57 |        202 |
+| c:\Users\alinb\FitnessAndNutrition\package-lock.json                                                             | JSON               |     15,171 |          0 |          1 |     15,172 |
+| c:\Users\alinb\FitnessAndNutrition\package.json                                                                  | JSON               |         53 |          0 |          1 |         54 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ActivityScreen\ActivityScreen.js                                      | JavaScript         |        130 |          0 |         10 |        140 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ActivityScreen\index.js                                               | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\CalorieScreen\CalorieScreen.js                                        | JavaScript         |        100 |          0 |          7 |        107 |
+| c:\Users\alinb\FitnessAndNutrition\screens\CalorieScreen\index.js                                                | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ChatbotScreen\ChatbotScreen.js                                        | JavaScript         |        254 |          0 |         12 |        266 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ChatbotScreen\index.js                                                | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\EducativeScreen\EducativeScreen.js                                    | JavaScript         |         19 |          0 |          4 |         23 |
+| c:\Users\alinb\FitnessAndNutrition\screens\EducativeScreen\index.js                                              | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ExerciseInfoScreen\ExerciseInfoScreen.js                              | JavaScript         |         19 |          0 |          4 |         23 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ExerciseInfoScreen\index.js                                           | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ExerciseScreen\ExerciseScreen.js                                      | JavaScript         |         17 |          0 |          4 |         21 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ExerciseScreen\index.js                                               | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\FitnessScreen\FitnessScreen.js                                        | JavaScript         |         96 |          0 |          6 |        102 |
+| c:\Users\alinb\FitnessAndNutrition\screens\FitnessScreen\index.js                                                | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\FoodScreen\FoodScreen.js                                              | JavaScript         |        449 |          0 |         30 |        479 |
+| c:\Users\alinb\FitnessAndNutrition\screens\FoodScreen\index.js                                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\GoalScreen\GoalScreen.js                                              | JavaScript         |        102 |          0 |          9 |        111 |
+| c:\Users\alinb\FitnessAndNutrition\screens\GoalScreen\index.js                                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\GoalTimeScreen\GoalTimeScreen.js                                      | JavaScript         |        108 |          0 |         12 |        120 |
+| c:\Users\alinb\FitnessAndNutrition\screens\GoalTimeScreen\index.js                                               | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\HeightSelectorScreen\HeightSelectorScreen.js                          | JavaScript         |         96 |          0 |         11 |        107 |
+| c:\Users\alinb\FitnessAndNutrition\screens\HeightSelectorScreen\index.js                                         | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\InDepthExerciseScreen\InDepthExerciseScreen.js                        | JavaScript         |        165 |          0 |          9 |        174 |
+| c:\Users\alinb\FitnessAndNutrition\screens\InDepthExerciseScreen\index.js                                        | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\InformativeScreen\InformativeScreen.js                                | JavaScript         |          6 |          0 |          3 |          9 |
+| c:\Users\alinb\FitnessAndNutrition\screens\InformativeScreen\index.js                                            | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\MapScreen\MapScreen.js                                                | JavaScript         |        191 |          0 |          9 |        200 |
+| c:\Users\alinb\FitnessAndNutrition\screens\MapScreen\index.js                                                    | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\MicronutrientsScreen\MicronutrientsScreen.js                          | JavaScript         |         45 |          0 |          7 |         52 |
+| c:\Users\alinb\FitnessAndNutrition\screens\MicronutrientsScreen\index.js                                         | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ProfileConfigurationScreen\ProfileConfigurationScreen.js              | JavaScript         |         93 |          0 |         14 |        107 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ProfileConfigurationScreen\index.js                                   | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ProfileCreationScreen\ProfileCreationScreen.js                        | JavaScript         |         94 |          0 |         12 |        106 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ProfileCreationScreen\index.js                                        | JavaScript         |          1 |          0 |          1 |          2 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ProfileScreen\ProfileScreen.js                                        | JavaScript         |        162 |          0 |         17 |        179 |
+| c:\Users\alinb\FitnessAndNutrition\screens\ProfileScreen\index.js                                                | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\screens\SignInScreen\SignInScreen.js                                          | JavaScript         |        100 |          0 |         17 |        117 |
+| c:\Users\alinb\FitnessAndNutrition\screens\SignInScreen\index.js                                                 | JavaScript         |          1 |          0 |          1 |          2 |
+| c:\Users\alinb\FitnessAndNutrition\screens\SignUpScreen\SignUpScreen.js                                          | JavaScript         |        107 |          0 |         15 |        122 |
+| c:\Users\alinb\FitnessAndNutrition\screens\SignUpScreen\index.js                                                 | JavaScript         |          1 |          0 |          1 |          2 |
+| c:\Users\alinb\FitnessAndNutrition\screens\WeightSelectorScreen\WeightSelectorScreen.js                          | JavaScript         |         96 |          0 |         11 |        107 |
+| c:\Users\alinb\FitnessAndNutrition\screens\WeightSelectorScreen\index.js                                         | JavaScript         |          1 |          0 |          0 |          1 |
+| c:\Users\alinb\FitnessAndNutrition\services\apiExerciseServices.js                                               | JavaScript         |         53 |          1 |         11 |         65 |
+| c:\Users\alinb\FitnessAndNutrition\services\apiFoodServices.js                                                   | JavaScript         |        144 |          0 |         19 |        163 |
+| c:\Users\alinb\FitnessAndNutrition\services\apiMapServices.js                                                    | JavaScript         |         29 |          0 |          4 |         33 |
+| c:\Users\alinb\FitnessAndNutrition\tsconfig.json                                                                 | JSON with Comments |         11 |          0 |          1 |         12 |
+| Total                                                                                                            |                    |     20,081 |          2 |        485 |     20,568 |
++------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

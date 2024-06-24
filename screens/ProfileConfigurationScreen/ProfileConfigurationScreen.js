@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import CustomButton from '../../components/customButton/customButton';
+import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../../components/customButton';
 import CustomInput from '../../components/CustomInput';
 import DatePickerComponent from '../../components/DatePickerComponent';
 import GenderButton from '../../components/GenderButton';
@@ -9,9 +10,57 @@ const ProfileConfigurationScreen = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [selectedGender, setSelectedGender] = useState(null);
+    const [birthDate, setBirthDate] = useState('');
+    const [error, setError] = useState('');
+    const navigation = useNavigation();
 
-    const onContinuePressed = () => {
-        console.warn("Continue");
+    const onDateChange = (dateString) => {
+        setBirthDate(dateString);
+        if (new Date(dateString).getFullYear() < 1900) {
+            setError('Invalid date, please select a valid date.');
+        } else {
+            setError('');
+        }
+    }
+
+    const onContinuePressed = async () => {
+        try {
+            const response = await fetch('http://192.168.1.4:8081/users/profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Include credentials (cookies) in the request
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    gender: selectedGender,
+                    birthDate,
+                }),
+            });
+
+            const responseText = await response.text(); // Read the response as text
+
+            try {
+                const json = JSON.parse(responseText); // Try to parse the text as JSON
+
+                if (response.ok) {
+                    navigation.navigate('HeightSelector', {
+                        firstName,
+                        lastName,
+                        selectedGender,
+                        birthDate,
+                    });
+                } else {
+                    console.log('Profile update failed', json);
+                }
+            } catch (error) {
+                // Handle non-JSON response
+                console.error('Failed to parse JSON response:', responseText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     return (
@@ -49,7 +98,11 @@ const ProfileConfigurationScreen = () => {
                 />
             </View>
 
-            <DatePickerComponent style={styles.customDate} />
+            <DatePickerComponent 
+                onDateChange={onDateChange} 
+                errorText={error} 
+                style={styles.customDate} 
+            />
 
             <CustomButton
                 style={styles.customButtonStyle}
@@ -101,6 +154,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 
+    customDate: {
+        marginVertical: 20,
+    }
 });
 
 export default ProfileConfigurationScreen;

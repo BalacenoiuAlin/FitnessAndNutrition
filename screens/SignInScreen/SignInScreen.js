@@ -1,16 +1,43 @@
-import React from 'react';
-import { useState } from 'react';
-import { View, Text, Image, StyleSheet, useWindowDimensions, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import Logo from '../../assets/images/Logo.png';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/customButton';
+import { useAuth } from '../../context/AuthContext';
 
 const SignInScreen = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
+    const navigation = useNavigation();
 
-    const onSignInPressed = () => {
-        alert(`You pressed sign in`);
+    const onSignInPressed = async () => {
+        try {
+            const response = await fetch('http://192.168.1.4:8081/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const text = await response.text();
+
+            if (response.ok) {
+                const json = JSON.parse(text);
+                console.log('Login successful', json);
+                login(); 
+                navigation.navigate('NavigationBar'); 
+            } else {
+                console.log('Login failed', text);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const onForgotPasswordPressed = () => {
@@ -18,7 +45,7 @@ const SignInScreen = () => {
     }
 
     const onSignUpPressed = () => {
-        console.warn("onSignUpPressed");
+        navigation.navigate('SignUp');
     }
 
     const { height } = useWindowDimensions();
@@ -26,20 +53,20 @@ const SignInScreen = () => {
     return (
         <View style={styles.content}>
             <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>Enter your credential to Sign In</Text>
+            <Text style={styles.subtitle}>Enter your credentials to Sign In</Text>
             <CustomInput
-                placeholder="Username"
-                value={username}
-                setValue={setUsername}
+                placeholder="Email"
+                value={email}
+                setValue={setEmail}
                 secureTextEntry={false}
-                style={styles.customInputUsernameStyle}
+                style={styles.customInputStyle}
             />
             <CustomInput
                 placeholder="Password"
                 value={password}
                 setValue={setPassword}
                 secureTextEntry={true}
-                style={styles.customInputPasswordStyle}
+                style={styles.customInputStyle}
             />
             <CustomButton
                 text="Sign In"
@@ -55,7 +82,7 @@ const SignInScreen = () => {
             />
 
             <CustomButton
-                text="Don`t have an account?  Create one!"
+                text="Don’t have an account? Create one!"
                 onPress={onSignUpPressed}
                 type="TERTIARY"
                 style={styles.customButtonSignUp}
@@ -82,7 +109,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginTop: 40,
+        marginTop: 80,
         fontSize: 38,
         fontWeight: 'bold',
         marginBottom: 10,
@@ -91,24 +118,20 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 15,
         color: '#1C1C1C',
-        marginBottom: 30,
+        marginBottom: 50,
     },
 
-    customInputUsernameStyle: {
-        marginTop: 70,
-    },
-
-    customInputPasswordStyle:{
-        marginVertical: 40, 
+    customInputStyle: {
+        marginVertical: 20,
     },
 
     customButtonPasswordStyle: {
-        marginTop: 50,
+        top: -20,
         color: '#203C3B',
     },
 
-    customButtonSignUp:{
-        marginTop: 100,
+    customButtonSignUp: {
+        marginTop: 260,
         width: '60%',
     }
 });

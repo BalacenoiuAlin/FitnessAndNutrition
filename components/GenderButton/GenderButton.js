@@ -24,8 +24,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#203C3B',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 120,
-        height: 120,
+        width: 100,
+        height: 100,
+        marginHorizontal: 50,
         borderRadius: 20,
     },
     selectedContainer: {

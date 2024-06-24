@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import CustomButton from '../../components/customButton/customButton';
 import WeightSelectorComponent from '../../components/weightSelectorComponent/WeightSelectorComponent';
 
 const WeightSelectorScreen = () => {
+    const navigation = useNavigation();
+
     const onPress = () => {
-        alert(`You pressed continue`);
+        navigation.navigate('Goal');
     };
 
     return (

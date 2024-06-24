@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-const HeightSelectorComponent = () => {
+const HeightSelectorComponent = ({ setHeight }) => {
   const [selectedHeight, setSelectedHeight] = useState(108);
   const heights = Array.from({ length: 100 }, (_, i) => 130 + i);
 
+  const handleSelectHeight = (height) => {
+    setSelectedHeight(height);
+    setHeight(height); // Call the callback function to pass the selected height to the parent component
+  };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => setSelectedHeight(item)} style={styles.itemContainer}>
+    <TouchableOpacity onPress={() => handleSelectHeight(item)} style={styles.itemContainer}>
       <Text style={[styles.itemText, item === selectedHeight && styles.selectedItemText]}>
         {item} CM
       </Text>

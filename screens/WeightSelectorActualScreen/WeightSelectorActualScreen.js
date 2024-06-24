@@ -1,48 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
-import CustomButton from '../../components/customButton';
-import HeightSelectorComponent from '../../components/HeightSelectorComponent';
+import CustomButton from '../../components/customButton/customButton';
+import WeightSelectorComponent from '../../components/weightSelectorComponent/WeightSelectorComponent';
 
-const HeightSelectorScreen = () => {
-    const [height, setHeight] = useState(0);
+const WeightSelectorActualScreen = () => {
     const navigation = useNavigation();
-    const route = useRoute();
 
-    const { firstName, lastName, selectedGender, birthDate } = route.params;
-
-    const onPress = async () => {
-        try {
-            const response = await fetch('http://192.168.1.4:8081/users/profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstName,
-                    lastName,
-                    gender: selectedGender,
-                    birthDate,
-                    height,
-                }),
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
-            }
-
-            const json = await response.json();
-
-            if (response.ok) {
-                navigation.navigate('WeightSelectorActual');
-            } else {
-                console.log('Profile update failed', json);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
+    const onPress = () => {
+        navigation.navigate('WeightSelector');
     };
 
     return (
@@ -61,13 +28,13 @@ const HeightSelectorScreen = () => {
                     style={styles.progressBar}
                 />
                 <Text style={styles.textStyle}>
-                    What is your height?
+                    What is your actual weight?
                 </Text>
 
-                <HeightSelectorComponent setHeight={setHeight} />
+                <WeightSelectorComponent />
 
                 <Text style={styles.basementText}>
-                    Press on the value to lock it in!
+                        Press on the value to lock it in!
                 </Text>
                 <View style={styles.buttonContainer}>
                     <CustomButton
@@ -75,6 +42,7 @@ const HeightSelectorScreen = () => {
                         onPress={onPress}
                         style={styles.buttonStyle}
                     />
+
                 </View>
             </View>
         </View>
@@ -138,4 +106,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HeightSelectorScreen;
+export default WeightSelectorActualScreen;

@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import CustomButton from '../../components/customButton/customButton';
+import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../../components/customButton';
 import * as Progress from 'react-native-progress';
 
 const GoalScreen = () => {
+    const navigation = useNavigation();
+
     const handleWeight = (goal) => {
         alert(`You pressed your goal: ${goal}`);
+        navigation.navigate('GoalTime');
     };
 
     return (
@@ -14,7 +18,7 @@ const GoalScreen = () => {
                 Tell us about yourself!
             </Text>
             <View style={styles.styleContainer}>
-            <Progress.Bar
+                <Progress.Bar
                     progress={0.0}
                     width={250}
                     color="#203C3B"
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         shadowColor: '#000',
-        marginTop:60,
+        marginTop: 60,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
@@ -101,10 +105,9 @@ const styles = StyleSheet.create({
         marginBottom: 50,
     },
 
-    buttonStyle:{
+    buttonStyle: {
         width: '80%'
     }
-    
 });
 
 export default GoalScreen;

@@ -9,7 +9,9 @@ function DatePickerComponent({ errorText, onDateChange }) {
   function handleDateChange(event, date) {
     if (event.type === 'dismissed') return;
     setCurDate(date);
-    onDateChange(date.getTime().toString());
+    if (onDateChange && typeof onDateChange === 'function') {
+      onDateChange(date.toISOString().split('T')[0]);
+    }
   }
 
   return (
@@ -18,7 +20,7 @@ function DatePickerComponent({ errorText, onDateChange }) {
         <Text style={styles.label}>Enter your birthdate:</Text>
         <DateTimePicker
           value={curDate}
-          onChange={(event, date) => handleDateChange(event, date)}
+          onChange={handleDateChange}
         />
       </View>
       {errorText && <Text style={styles.errText}>{errorText}</Text>}
@@ -37,17 +39,22 @@ DatePickerComponent.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    justifyContent: 'space-around',
   },
   innerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-around',
+    marginHorizontal: 10,
+    width: '95%',
   },
   label: {
     fontSize: 18,
+    fontWeight: '500',
+    color: '#203C3B',
   },
   errText: {
-    color: '#420D09',
+    color: '#203C3B',
     fontSize: 15,
     marginTop: 2,
   },

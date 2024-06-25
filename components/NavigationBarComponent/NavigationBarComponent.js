@@ -21,12 +21,14 @@ const EducativeStack = createStackNavigator();
 const FitnessStack = createStackNavigator();
 const CalorieStack = createStackNavigator();
 
-const CalorieStackNavigator = () => {
+const CalorieStackNavigator = ({ route }) => {
+  const { email } = route.params || {};
   return (
     <CalorieStack.Navigator>
       <CalorieStack.Screen
         name="Calorie"
         component={CalorieScreen}
+        initialParams={{ email }}
         options={{ headerShown: false }}
       />
       <CalorieStack.Screen

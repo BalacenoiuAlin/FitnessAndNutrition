@@ -33,7 +33,7 @@ const getMealImage = (mealType) => {
 };
 
 const FoodScreen = ({ route }) => {
-  const { mealType } = route.params;
+  const { mealType, email, updateMealKcals } = route.params;
   const mealImage = getMealImage(mealType);
   const [foodData, setFoodData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,7 @@ const FoodScreen = ({ route }) => {
 
     const loadStoredFoods = async () => {
       try {
-        const storedFoods = await AsyncStorage.getItem(`${mealType}_addedFoods`);
+        const storedFoods = await AsyncStorage.getItem(`${mealType}_${email}_addedFoods`);
         if (storedFoods !== null) {
           setAddedFoods(JSON.parse(storedFoods));
         }
@@ -70,7 +70,7 @@ const FoodScreen = ({ route }) => {
 
     fetchData();
     loadStoredFoods();
-  }, [mealType]);
+  }, [mealType, email]);
 
   useEffect(() => {
     handleSearch();
@@ -79,16 +79,17 @@ const FoodScreen = ({ route }) => {
   useEffect(() => {
     const storeFoods = async () => {
       try {
-        await AsyncStorage.setItem(`${mealType}_addedFoods`, JSON.stringify(addedFoods));
+        await AsyncStorage.setItem(`${mealType}_${email}_addedFoods`, JSON.stringify(addedFoods));
+        if (updateMealKcals) {
+          updateMealKcals(mealType); // Update the calories after storing foods
+        }
       } catch (error) {
         console.error('Error storing foods:', error);
       }
     };
 
-    if (addedFoods.length > 0) {
-      storeFoods();
-    }
-  }, [addedFoods, mealType]);
+    storeFoods();
+  }, [addedFoods, mealType, email, updateMealKcals]);
 
   const handleSearch = async () => {
     Keyboard.dismiss();
@@ -203,10 +204,18 @@ const FoodScreen = ({ route }) => {
     setSelectedFood(null);
     setSearchQuery('');
     await triggerSearch();
+    if (updateMealKcals) {
+      updateMealKcals(mealType); // Update the calories after adding food
+    }
   };
 
-  const handleDeleteFood = (index) => {
-    setAddedFoods((prevFoods) => prevFoods.filter((_, i) => i !== index));
+  const handleDeleteFood = async (index) => {
+    const newFoods = addedFoods.filter((_, i) => i !== index);
+    setAddedFoods(newFoods);
+    await AsyncStorage.setItem(`${mealType}_${email}_addedFoods`, JSON.stringify(newFoods));
+    if (updateMealKcals) {
+      updateMealKcals(mealType); // Update the calories after deleting food
+    }
   };
 
   const calculateTotalNutrients = (nutrient) => {
@@ -229,8 +238,6 @@ const FoodScreen = ({ route }) => {
 
   const totalVitaminsSum = Object.values(totalVitamins).reduce((a, b) => a + b, 0);
   const totalMineralsSum = Object.values(totalMinerals).reduce((a, b) => a + b, 0);
-
-
 
   const handleBarcodeScanned = async (data) => {
     setBarcode(data);
@@ -266,9 +273,9 @@ const FoodScreen = ({ route }) => {
       setFoodData(result);
       setSuggestions([]);
       if (result.length > 0) {
-        setSelectedFood(result[0]);  // Setați selectedFood pentru a afișa FoodDetailComponent
+        setSelectedFood(result[0]);
       } else {
-        console.log('Food not found in the database'); // Mesaj dacă alimentul nu este găsit
+        console.log('Food not found in the database');
       }
     } catch (error) {
       console.error('Error fetching food data by barcode:', error);

@@ -8,7 +8,8 @@ import FoodDashboardComponent from '../../components/FoodDashboardComponent/Food
 import WaterIntakeComponent from '../../components/WaterIntakeComponent/WaterIntakeComponent';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const CalorieScreen = ({ navigation }) => {
+const CalorieScreen = ({ navigation, route }) => {
+  const { email } = route.params || {}; // Get the email from route params
   const [currentKcals, setCurrentKcals] = useState({
     breakfast: 0,
     lunch: 0,
@@ -16,26 +17,29 @@ const CalorieScreen = ({ navigation }) => {
     snacks: 0,
   });
 
-  const fetchCurrentKcals = async (mealType) => {
+  const updateMealKcals = async (mealType) => {
     try {
-      const storedFoods = await AsyncStorage.getItem(`${mealType}_addedFoods`);
+      const storedFoods = await AsyncStorage.getItem(`${mealType}_${email}_addedFoods`);
       if (storedFoods !== null) {
         const foods = JSON.parse(storedFoods);
         const totalKcals = foods.reduce((sum, food) => sum + food.nutrients.ENERC_KCAL, 0);
         setCurrentKcals((prev) => ({ ...prev, [mealType]: totalKcals }));
+      } else {
+        setCurrentKcals((prev) => ({ ...prev, [mealType]: 0 }));
       }
     } catch (error) {
       console.error(`Error loading ${mealType} calories:`, error);
+      setCurrentKcals((prev) => ({ ...prev, [mealType]: 0 }));
     }
   };
 
   useFocusEffect(
     useCallback(() => {
-      fetchCurrentKcals('breakfast');
-      fetchCurrentKcals('lunch');
-      fetchCurrentKcals('dinner');
-      fetchCurrentKcals('snacks');
-    }, [])
+      updateMealKcals('breakfast');
+      updateMealKcals('lunch');
+      updateMealKcals('dinner');
+      updateMealKcals('snacks');
+    }, [email])
   );
 
   return (
@@ -45,22 +49,22 @@ const CalorieScreen = ({ navigation }) => {
       <FoodDashboardComponent
         mealType='breakfast'
         currentKcals={currentKcals.breakfast}
-        onPress={() => navigation.navigate('FoodScreen', { mealType: 'breakfast' })}
+        onPress={() => navigation.navigate('FoodScreen', { mealType: 'breakfast', email, updateMealKcals })}
       />
       <FoodDashboardComponent
         mealType='lunch'
         currentKcals={currentKcals.lunch}
-        onPress={() => navigation.navigate('FoodScreen', { mealType: 'lunch' })}
+        onPress={() => navigation.navigate('FoodScreen', { mealType: 'lunch', email, updateMealKcals })}
       />
       <FoodDashboardComponent
         mealType='dinner'
         currentKcals={currentKcals.dinner}
-        onPress={() => navigation.navigate('FoodScreen', { mealType: 'dinner' })}
+        onPress={() => navigation.navigate('FoodScreen', { mealType: 'dinner', email, updateMealKcals })}
       />
       <FoodDashboardComponent
         mealType='snacks'
         currentKcals={currentKcals.snacks}
-        onPress={() => navigation.navigate('FoodScreen', { mealType: 'snacks' })}
+        onPress={() => navigation.navigate('FoodScreen', { mealType: 'snacks', email, updateMealKcals })}
       />
       <View style={styles.rowContainer}>
         <WaterIntakeComponent />

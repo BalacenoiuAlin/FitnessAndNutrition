@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const MicronutrientsOverviewComponent = ({ navigation, totalVitamins = 0, totalMinerals = 0 }) => {
+const MicronutrientsOverviewComponent = ({ navigation, totalVitamins = {}, totalMinerals = {} }) => {
   const [overallVitamins, setOverallVitamins] = useState(0);
   const [overallMinerals, setOverallMinerals] = useState(0);
 
   useEffect(() => {
-    setOverallVitamins(totalVitamins);
-    setOverallMinerals(totalMinerals);
+    setOverallVitamins(Object.values(totalVitamins).reduce((a, b) => a + b, 0));
+    setOverallMinerals(Object.values(totalMinerals).reduce((a, b) => a + b, 0));
   }, [totalVitamins, totalMinerals]);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Micronutrients')}>
+    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Micronutrients', { totalVitamins, totalMinerals })}>
       <View style={styles.overallProgressContainer}>
         <Text style={styles.overallText}>Total Vitamins</Text>
-        <Text style={styles.overallValue}>{overallVitamins.toFixed(2)} mg</Text>
+        <Text style={styles.overallValue}>{isNaN(overallVitamins) ? '0.00' : overallVitamins.toFixed(2)} mg</Text>
       </View>
       <View style={styles.overallProgressContainer}>
         <Text style={styles.overallText}>Total Minerals</Text>
-        <Text style={styles.overallValue}>{overallMinerals.toFixed(2)} mg</Text>
+        <Text style={styles.overallValue}>{isNaN(overallMinerals) ? '0.00' : overallMinerals.toFixed(2)} mg</Text>
       </View>
     </TouchableOpacity>
   );

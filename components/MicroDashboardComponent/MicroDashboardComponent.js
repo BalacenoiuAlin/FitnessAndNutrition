@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-const MicroDashboardComponent = ({ totalVitamins, totalMinerals, onPress }) => {
+const MicroDashboardComponent = ({ totalVitamins = {}, totalMinerals = {}, onPress }) => {
   const micronutrients = [
     { name: 'Vitamin A', intake: totalVitamins.VITA_RAE || 0, goal: 100, type: 'Vitamin' },
     { name: 'Vitamin C', intake: totalVitamins.VITC || 0, goal: 90, type: 'Vitamin' },

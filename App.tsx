@@ -3,12 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
-import ProfileConfigurationScreen from './screens/ProfileConfigurationScreen';
-import HeightSelectorScreen from './screens/HeightSelectorScreen';
-import GoalScreen from './screens/GoalScreen';
-import GoalTimeScreen from './screens/GoalTimeScreen';
-import WeightSelectorScreen from './screens/WeightSelectorScreen/WeightSelectorScreen';
-import WeightSelectorActualScreen from './screens/WeightSelectorActualScreen';
 import NavigationBarComponent from './components/NavigationBarComponent';
 import { AuthProvider, useAuth } from './context/AuthContext';
 

@@ -9,7 +9,7 @@ import WaterIntakeComponent from '../../components/WaterIntakeComponent/WaterInt
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CalorieScreen = ({ navigation, route }) => {
-  const { email } = route.params || {}; // Get the email from route params
+  const { email } = route.params || {};
   const [currentKcals, setCurrentKcals] = useState({
     breakfast: 0,
     lunch: 0,

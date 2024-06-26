@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomButton from "../../components/customButton";
 import { useAuth } from "../../context/AuthContext";
 import WeightPredictionComponent from "../../components/WeightPredictionComponent";
+import { IP, PORT } from '@env';
 
 const ProfileScreen = () => {
     const [user, setUser] = useState(null);
@@ -17,7 +18,7 @@ const ProfileScreen = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch('http://192.168.1.4:8081/user/profile', {
+                const response = await fetch('http://IP:PORT/user/profile', {
                     method: 'GET',
                     credentials: 'include',
                 });

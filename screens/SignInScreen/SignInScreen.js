@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/customButton';
 import { useAuth } from '../../context/AuthContext';
+import { IP, PORT } from '@env';
 
 const SignInScreen = () => {
     const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const SignInScreen = () => {
 
     const onSignInPressed = async () => {
         try {
-            const response = await fetch('http://192.168.1.4:8081/auth/login', {
+            const response = await fetch('http://IP:PORT/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

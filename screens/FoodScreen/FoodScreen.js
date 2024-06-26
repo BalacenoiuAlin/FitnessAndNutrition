@@ -81,7 +81,7 @@ const FoodScreen = ({ route }) => {
       try {
         await AsyncStorage.setItem(`${mealType}_${email}_addedFoods`, JSON.stringify(addedFoods));
         if (updateMealKcals) {
-          updateMealKcals(mealType); // Update the calories after storing foods
+          updateMealKcals(mealType);
         }
       } catch (error) {
         console.error('Error storing foods:', error);
@@ -205,7 +205,7 @@ const FoodScreen = ({ route }) => {
     setSearchQuery('');
     await triggerSearch();
     if (updateMealKcals) {
-      updateMealKcals(mealType); // Update the calories after adding food
+      updateMealKcals(mealType);
     }
   };
 
@@ -214,7 +214,7 @@ const FoodScreen = ({ route }) => {
     setAddedFoods(newFoods);
     await AsyncStorage.setItem(`${mealType}_${email}_addedFoods`, JSON.stringify(newFoods));
     if (updateMealKcals) {
-      updateMealKcals(mealType); // Update the calories after deleting food
+      updateMealKcals(mealType);
     }
   };
 

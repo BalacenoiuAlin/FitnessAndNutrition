@@ -7,6 +7,7 @@ import GenderButton from '../../components/GenderButton';
 import DatePickerComponent from '../../components/DatePickerComponent';
 import PickerComponent from '../../components/PickerComponent';
 import TargetPicker from '../../components/TargetPicker';
+import { IP, PORT } from '@env';
 
 const SignUpScreen = () => {
     const [email, setEmail] = useState('');
@@ -48,7 +49,7 @@ const SignUpScreen = () => {
                 activity: activity,
             };
 
-            const response = await fetch('http://192.168.1.4:8081/auth/register', {
+            const response = await fetch('http://IP:PORT/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from "react-native";
 import WeightPredictionComponent from "../../components/WeightPredictionComponent";
 import { useAuth } from "../../context/AuthContext";
+import { IP, PORT } from '@env';
 
 const PredictionScreen = () => {
     const [user, setUser] = useState(null);
@@ -10,7 +11,7 @@ const PredictionScreen = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch('http://192.168.1.4:8081/user/profile', {
+                const response = await fetch('http://IP:PORT/user/profile', {
                     method: 'GET',
                     credentials: 'include',
                 });

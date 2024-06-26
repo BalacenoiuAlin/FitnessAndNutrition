@@ -1,7 +1,7 @@
 import { EXERCISE_API_HOST, EXERCISE_API_KEY } from '@env';
 
 const headers = {
-  //'x-rapidapi-host': EXERCISE_API_HOST,
+  'x-rapidapi-host': EXERCISE_API_HOST,
   'x-rapidapi-key': EXERCISE_API_KEY,
 };
 

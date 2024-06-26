@@ -24,13 +24,12 @@ const WeightPredictionComponent = ({ user }) => {
         while ((goal === "Lose Weight" && currentWeight > desiredWeight) ||
                (goal === "Gain Weight" && currentWeight < desiredWeight)) {
             const weeklyCaloricChange = calculateWeeklyCaloricChange(tdee, goal, week);
-            const weeklyWeightChange = weeklyCaloricChange / 7700; // 7700 calories approximately equals 1kg
+            const weeklyWeightChange = weeklyCaloricChange / 7700; 
             currentWeight += weeklyWeightChange;
             data.push({ week: week, weight: currentWeight.toFixed(2) });
             week++;
         }
 
-        // Add the final desired weight point
         data.push({ week: week, weight: desiredWeight.toFixed(2) });
 
         return data;
